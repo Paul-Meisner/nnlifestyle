@@ -1,0 +1,40 @@
+---
+import { Icon } from "astro-icon/components";
+import { url } from "@utils/url";
+
+interface Props {
+    class?: string;
+}
+const { class: className } = Astro.props;
+
+const pillars = ["Faith", "Fitness", "Family", "Travel", "Health"];
+---
+
+<div class:list={[className, "card-base flex flex-col-reverse md:flex-row w-full rounded-[var(--radius-large)] overflow-hidden relative"]}>
+    <div class="md:w-[28%] shrink-0 flex items-center justify-center p-8 bg-white rounded-b-[var(--radius-large)] md:rounded-b-none md:rounded-l-[var(--radius-large)]">
+        <img src={url('/assets/images/logo.png')} alt="Now or Never Lifestyle" class="w-full max-w-[11rem] object-contain" />
+    </div>
+    <div class="flex-1 pl-6 md:pl-9 pr-6 pt-6 md:pt-7 pb-6 relative">
+        <a href={url('/about/')}
+           class="transition group w-full block font-bold mb-3 text-3xl text-90
+        hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
+        active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
+        before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
+        ">
+            About Now or Never Lifestyle
+            <Icon class="inline text-[2rem] text-[var(--primary)] md:hidden translate-y-0.5 absolute" name="material-symbols:chevron-right-rounded"></Icon>
+            <Icon class="text-[var(--primary)] text-[2rem] transition hidden md:inline absolute translate-y-0.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0" name="material-symbols:chevron-right-rounded"></Icon>
+        </a>
+        <div class="flex flex-wrap items-center gap-1.5 mb-4">
+            {pillars.map((p) => (
+                <span class="text-xs px-2 py-1 rounded-full bg-[var(--btn-regular-bg)] text-[var(--btn-content)]">
+                    {p}
+                </span>
+            ))}
+        </div>
+        <div class="transition text-75 mb-1 pr-4">
+            Now or Never is written primarily by its founder — practical guidance on faith, fitness, family, and health, built to hold up over years rather than news cycles.
+        </div>
+    </div>
+</div>

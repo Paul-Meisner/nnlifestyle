@@ -1,0 +1,51 @@
+---
+import { getSortedPostsList } from "@utils/content";
+import { getPostUrl } from "@utils/url";
+import { i18n } from "@i18n/translation";
+import I18nKey from "@i18n/i18nKey";
+import WidgetLayout from "./widgetLayout.astro";
+
+const allPosts = await getSortedPostsList();
+const recentPosts = allPosts.slice(0, 3);
+
+interface Props {
+    class?: string;
+    style?: string;
+    side?: string;
+}
+
+const { class: className, style, side = "default" } = Astro.props;
+const placeholder = "/assets/images/placeholder.jpg";
+---
+
+<WidgetLayout
+    name={i18n(I18nKey.recentPosts)}
+    id={`recent-posts-${side}`}
+    class={className}
+    style={style}
+>
+    <div class="flex flex-col gap-6">
+        {recentPosts.map((post) => (
+            <a
+                href={getPostUrl(post)}
+                class="flex flex-col items-center group"
+                title={post.data.title}
+            >
+                <img
+                    src={post.data.cover || placeholder}
+                    alt={post.data.title}
+                    class="w-full aspect-[4/3] object-cover rounded-lg mb-2 transition group-hover:scale-105"
+                    loading="lazy"
+                />
+                <span class="text-sm text-neutral-700 dark:text-neutral-200 text-center group-hover:text-primary transition-colors font-semibold">
+                    {post.data.title}
+                </span>
+            </a>
+        ))}
+        {recentPosts.length === 0 && (
+            <p class="text-sm text-neutral-500 dark:text-neutral-500">
+                No posts yet
+            </p>
+        )}
+    </div>
+</WidgetLayout>

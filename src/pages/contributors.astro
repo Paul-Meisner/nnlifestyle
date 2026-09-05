@@ -1,0 +1,100 @@
+---
+export const prerender = true;
+
+import { getEntry, render } from "astro:content";
+
+import { contributors } from "@constants/contributors";
+import { partners } from "@constants/partners";
+import { url } from "@utils/url";
+import Markdown from "@components/common/markdown.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import ImageWrapper from "@components/common/imageWrapper.astro";
+import AuthorCard from "@components/authorCard.astro";
+
+const pageTitle = "Contributors";
+const pageDescription = "Who writes for Now or Never, and why we asked them.";
+
+const introPost = await getEntry("spec", "contributors");
+const footerPost = await getEntry("spec", "contributors-footer");
+
+if (!introPost || !footerPost) {
+    throw new Error("Contributors page content not found");
+}
+
+const { Content: IntroContent } = await render(introPost);
+const { Content: FooterContent } = await render(footerPost);
+
+const permanentAuthors = contributors.filter((c) => c.tier === "permanent");
+const guestContributors = contributors.filter((c) => c.tier === "guest");
+
+function initialsFor(name: string): string {
+    return name
+        .replace(/[.,[\]]/g, "")
+        .split(" ")
+        .filter(Boolean)
+        .map((n) => n[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+}
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <Markdown class="mt-2">
+                <IntroContent />
+            </Markdown>
+
+            <h2 class="mt-6 mb-4 text-90">Permanent authors</h2>
+            <div class="flex flex-col gap-4">
+                {permanentAuthors.map((c) => (
+                    <AuthorCard contributor={c} showViewPosts={true} />
+                ))}
+            </div>
+
+            <h2 class="mt-8 mb-1 text-90">Guest contributors</h2>
+            <p class="text-sm text-black/50 dark:text-white/50 mb-4">Invited writers. Not staff, not paid, not paying.</p>
+            <div class="flex flex-col gap-3">
+                {guestContributors.map((c) => {
+                    const affiliatedPartner = c.affiliatedPartnerSlug
+                        ? partners.find((p) => p.slug === c.affiliatedPartnerSlug)
+                        : undefined;
+                    return (
+                        <a
+                            href={url(`/author/${c.slug}/`)}
+                            class="card-base group flex flex-col sm:flex-row sm:items-center gap-3 p-4 transition-colors duration-150 hover:bg-[var(--btn-card-bg-hover)]"
+                        >
+                            {c.photo ? (
+                                <ImageWrapper src={c.photo} alt={c.name} class="w-12 h-12 rounded-full overflow-hidden shrink-0" />
+                            ) : (
+                                <div class="w-12 h-12 rounded-full shrink-0 flex items-center justify-center bg-[var(--btn-regular-bg)] text-[var(--btn-content)] font-bold text-sm" aria-hidden="true">
+                                    {initialsFor(c.name)}
+                                </div>
+                            )}
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold text-90 transition-colors group-hover:text-[var(--primary)]">
+                                    {c.name}
+                                </h3>
+                                <div class="text-xs uppercase tracking-wide text-black/50 dark:text-white/50 mb-1">
+                                    {c.role}
+                                </div>
+                                <p class="text-sm text-black/70 dark:text-white/70">{c.blurb}</p>
+                                {affiliatedPartner && c.disclosureText && (
+                                    <p class="text-xs italic text-black/50 dark:text-white/50 mt-1">{c.disclosureText}</p>
+                                )}
+                                <span class="inline-block mt-2 text-sm font-medium text-[var(--primary)]">View all posts by {c.name.split(" ")[0]} →</span>
+                            </div>
+                        </a>
+                    );
+                })}
+            </div>
+
+            <Markdown class="mt-8">
+                <FooterContent />
+            </Markdown>
+        </div>
+    </div>
+</GridLayout>

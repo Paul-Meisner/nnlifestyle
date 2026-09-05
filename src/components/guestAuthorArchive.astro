@@ -1,0 +1,118 @@
+---
+import { getCollection } from "astro:content";
+
+import type { Contributor } from "@constants/contributors";
+import { partners } from "@constants/partners";
+import { url } from "@utils/url";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import ImageWrapper from "@components/common/imageWrapper.astro";
+import PostPage from "@components/postPage.astro";
+
+interface Props {
+    contributor: Contributor;
+}
+
+const { contributor } = Astro.props;
+
+const affiliatedPartner = contributor.affiliatedPartnerSlug
+    ? partners.find((p) => p.slug === contributor.affiliatedPartnerSlug)
+    : undefined;
+
+const allPosts = await getCollection(
+    "posts",
+    ({ data }) => data.draft !== true && data.author === contributor.name,
+);
+const sortedPosts = allPosts.sort((a, b) => {
+    if (a.data.pinned && !b.data.pinned) return -1;
+    if (!a.data.pinned && b.data.pinned) return 1;
+    return new Date(a.data.published) > new Date(b.data.published) ? -1 : 1;
+});
+
+const firstName = contributor.name.split(" ")[0];
+const initials = contributor.name
+    .replace(/[.,[\]]/g, "")
+    .split(" ")
+    .filter(Boolean)
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+// Each guest contributor gets their own Person @id (distinct from Paul's, which
+// stays declared once on /about/) — this is the one place it's declared, referenced
+// by their contributors-page entry and (once they have bylines) their article schema.
+const personId = new URL(`/author/${contributor.slug}/#person-${contributor.slug}`, Astro.site).toString();
+const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": personId,
+    name: contributor.name,
+    jobTitle: contributor.role,
+    sameAs: contributor.sameAs || [],
+};
+const profilePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    dateModified: new Date().toISOString(),
+    mainEntity: { "@id": personId },
+};
+---
+
+<GridLayout title={contributor.name} description={contributor.blurb}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+
+            <div class="flex items-center gap-4 mt-4">
+                {contributor.photo ? (
+                    <ImageWrapper
+                        src={contributor.photo}
+                        alt={contributor.name}
+                        class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shrink-0"
+                    />
+                ) : (
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full shrink-0 flex items-center justify-center bg-[var(--btn-regular-bg)] text-[var(--btn-content)] font-bold text-xl" aria-hidden="true">
+                        {initials}
+                    </div>
+                )}
+                <div>
+                    <h1 class="mb-0 text-90">{contributor.name}</h1>
+                    <p class="text-black/50 dark:text-white/50 text-sm mt-1">{contributor.role}</p>
+                </div>
+            </div>
+
+            <p class="mt-6 max-w-[var(--measure)]">{contributor.blurb}</p>
+
+            {contributor.specialties && contributor.specialties.length > 0 && (
+                <p class="mt-2 text-sm text-black/60 dark:text-white/60">
+                    <strong>Writes about:</strong> {contributor.specialties.join(", ")}
+                </p>
+            )}
+
+            {affiliatedPartner && contributor.disclosureText && (
+                <p class="mt-3 text-sm italic text-black/60 dark:text-white/60 max-w-[var(--measure)]">
+                    {contributor.disclosureText.split(affiliatedPartner.name)[0]}
+                    <a href={url(`/partners/${affiliatedPartner.slug}/`)} class="link text-[var(--primary)] not-italic">{affiliatedPartner.name}</a>
+                    {contributor.disclosureText.split(affiliatedPartner.name)[1]}
+                </p>
+            )}
+
+            {contributor.professionalLinksNote && (
+                <div class="flex items-center gap-3 mt-4 text-sm text-black/50 dark:text-white/50">
+                    <em>{contributor.professionalLinksNote}</em>
+                </div>
+            )}
+
+            <h2 class="mt-8 mb-4 text-90">Posts by {firstName}</h2>
+            {sortedPosts.length > 0 ? (
+                <PostPage page={{ data: sortedPosts }} />
+            ) : (
+                <p class="text-black/50 dark:text-white/50">Nothing published yet — check back soon.</p>
+            )}
+        </div>
+    </div>
+</GridLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(profilePageSchema)} />

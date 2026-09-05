@@ -1,0 +1,75 @@
+---
+export const prerender = true;
+
+import { getCollection } from "astro:content";
+
+import { profileConfig } from "@/config";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import ImageWrapper from "@components/common/imageWrapper.astro";
+import PostPage from "@components/postPage.astro";
+
+const pageTitle = "Paul Meisner";
+const pageDescription = "Founder and editor of Now or Never. Training, nutrition, faith, and the long game of staying healthy.";
+
+// Single-author site today — posts default to Paul unless a future guest
+// writer's post sets `author` to their own name.
+const allPosts = await getCollection(
+    "posts",
+    ({ data }) => data.draft !== true && (data.author === "" || data.author === "Paul Meisner"),
+);
+const sortedPosts = allPosts.sort((a, b) => {
+    if (a.data.pinned && !b.data.pinned) return -1;
+    if (!a.data.pinned && b.data.pinned) return 1;
+    return new Date(a.data.published) > new Date(b.data.published) ? -1 : 1;
+});
+
+// Same @id declared on /about/ — do not create a second Person entity for Paul.
+const personId = new URL("/about/#person-paul-meisner", Astro.site).toString();
+const profilePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    dateCreated: sortedPosts.at(-1)?.data.published,
+    dateModified: new Date().toISOString(),
+    mainEntity: {
+        "@id": personId,
+    },
+};
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+
+            <div class="flex items-center gap-4 mt-4">
+                <ImageWrapper
+                    src={profileConfig.avatar || ""}
+                    alt="Paul Meisner"
+                    class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shrink-0"
+                />
+                <div>
+                    <h1 class="mb-0 text-90">Paul Meisner</h1>
+                    <p class="text-black/50 dark:text-white/50 text-sm mt-1">Founder and Editor, Now or Never</p>
+                </div>
+            </div>
+
+            <p class="mt-6 max-w-[var(--measure)]">
+                Paul Meisner is the founder and editor of Now or Never. He writes about training, nutrition, faith, and the long game of staying healthy while running a business and raising a family. He is not a physician, and Now or Never does not publish medical advice — what it publishes is the reasoning, the research, and the lived experience behind decisions readers are making anyway.
+            </p>
+
+            <div class="flex items-center gap-3 mt-4 text-sm text-black/50 dark:text-white/50">
+                <em>Links: LinkedIn · X · Instagram — to be added</em>
+            </div>
+
+            <h2 class="mt-8 mb-4 text-90">Posts by Paul</h2>
+            {sortedPosts.length > 0 ? (
+                <PostPage page={{ data: sortedPosts }} />
+            ) : (
+                <p class="text-black/50 dark:text-white/50">Nothing published yet — check back soon.</p>
+            )}
+        </div>
+    </div>
+</GridLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(profilePageSchema)} />

@@ -1,0 +1,21 @@
+---
+import { url } from "@utils/url";
+import WidgetLayout from "./widgetLayout.astro";
+
+
+interface Props {
+    class?: string;
+    style?: string;
+    side?: string;
+}
+const { class: className, style, side = "default" } = Astro.props;
+---
+
+<WidgetLayout name="Have a question or an idea?" id={`contact-cta-${side}`} class={className} style={style}>
+    <p class="text-sm text-black/60 dark:text-white/60 mb-3">
+        Whether it's a correction, a pitch, or a partnership — the person who reads the message is the person who writes the site.
+    </p>
+    <a href={url('/contact/')} class="btn-regular rounded-lg px-3 py-1.5 text-sm font-medium active:scale-95 transition-transform">
+        Get in touch
+    </a>
+</WidgetLayout>

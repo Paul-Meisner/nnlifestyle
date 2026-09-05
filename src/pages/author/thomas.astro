@@ -1,0 +1,10 @@
+---
+export const prerender = true;
+
+import { contributors } from "@constants/contributors";
+import GuestAuthorArchive from "@components/guestAuthorArchive.astro";
+
+const contributor = contributors.find((c) => c.slug === "thomas")!;
+---
+
+<GuestAuthorArchive contributor={contributor} />

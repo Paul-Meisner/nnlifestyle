@@ -1,0 +1,46 @@
+---
+export const prerender = true;
+
+import { getEntry, render } from "astro:content";
+
+import Markdown from "@components/common/markdown.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import ContactForm from "@components/contactForm.svelte";
+
+const pageTitle = "Contact";
+const pageDescription = "Get in touch with Now or Never — partnerships, contributor pitches, expert commentary, or reader questions.";
+
+const contactIntro = await getEntry("spec", "contact");
+const contactFooter = await getEntry("spec", "contact-footer");
+
+if (!contactIntro || !contactFooter) {
+    throw new Error("Contact page content not found");
+}
+
+const { Content: IntroContent } = await render(contactIntro);
+const { Content: FooterContent } = await render(contactFooter);
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <Markdown class="mt-2">
+                <IntroContent />
+            </Markdown>
+
+            <h2 class="mt-2 text-90">Contact form</h2>
+            <div class="mt-4">
+                <ContactForm client:load />
+            </div>
+            <p class="text-sm text-black/50 dark:text-white/50 mt-4">
+                Prefer email? <a href="mailto:paul.meisner.cs@gmail.com" class="link text-[var(--primary)]">paul.meisner.cs@gmail.com</a> works just as well.
+            </p>
+
+            <Markdown class="mt-8">
+                <FooterContent />
+            </Markdown>
+        </div>
+    </div>
+</GridLayout>

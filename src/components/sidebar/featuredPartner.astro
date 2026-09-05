@@ -1,0 +1,116 @@
+---
+import { partners } from "@constants/partners";
+import { url } from "@utils/url";
+import WidgetLayout from "./widgetLayout.astro";
+
+
+interface Props {
+    class?: string;
+    style?: string;
+    side?: string;
+    // Seconds between slides
+    interval?: number;
+}
+
+const { class: className, style, side = "default", interval = 6 } = Astro.props;
+---
+
+{partners.length > 0 && (
+    <WidgetLayout name="Featured Partners" id={`featured-partner-${side}`} class={className} style={style}>
+        <partner-carousel data-interval={interval} class="relative block">
+            <div class="relative" style={`min-height: 11rem;`}>
+                {partners.map((partner, index) => (
+                    <div
+                        class:list={["partner-slide flex flex-col items-center text-center transition-opacity duration-500", index === 0 ? "opacity-100 relative" : "opacity-0 absolute inset-0 pointer-events-none"]}
+                        data-index={index}
+                    >
+                        <img
+                            src={url(partner.logo)}
+                            alt={`${partner.name} logo`}
+                            class="h-16 max-w-[70%] object-contain mb-3"
+                            loading="lazy"
+                        />
+                        <div class="font-bold text-90">{partner.name}</div>
+                        <div class="text-xs uppercase tracking-wide text-black/50 dark:text-white/50 mt-1 mb-3">
+                            {partner.categories.join(" · ")}
+                        </div>
+                        <a
+                            href={url(`/partners/${partner.slug}/`)}
+                            class="btn-regular rounded-lg px-3 py-1.5 text-sm font-medium active:scale-95 transition-transform"
+                        >
+                            Learn more
+                        </a>
+                    </div>
+                ))}
+            </div>
+            {partners.length > 1 && (
+                <div class="flex justify-center gap-1.5 mt-3">
+                    {partners.map((_, index) => (
+                        <button
+                            type="button"
+                            class:list={["carousel-dot w-1.5 h-1.5 rounded-full transition-colors duration-300", index === 0 ? "bg-[var(--primary)]" : "bg-[var(--line-color)]"]}
+                            data-index={index}
+                            aria-label={`Show partner ${index + 1}`}
+                        ></button>
+                    ))}
+                </div>
+            )}
+        </partner-carousel>
+    </WidgetLayout>
+)}
+
+<script>
+    class PartnerCarousel extends HTMLElement {
+        private timer: ReturnType<typeof setInterval> | null = null;
+        private currentIndex = 0;
+
+        connectedCallback() {
+            const slides = Array.from(this.querySelectorAll<HTMLElement>(".partner-slide"));
+            const dots = Array.from(this.querySelectorAll<HTMLElement>(".carousel-dot"));
+            if (slides.length <= 1) return;
+
+            const intervalSeconds = Number(this.dataset.interval) || 6;
+
+            const show = (index: number) => {
+                slides.forEach((slide, i) => {
+                    const isActive = i === index;
+                    slide.classList.toggle("opacity-100", isActive);
+                    slide.classList.toggle("relative", isActive);
+                    slide.classList.toggle("opacity-0", !isActive);
+                    slide.classList.toggle("absolute", !isActive);
+                    slide.classList.toggle("inset-0", !isActive);
+                    slide.classList.toggle("pointer-events-none", !isActive);
+                });
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle("bg-[var(--primary)]", i === index);
+                    dot.classList.toggle("bg-[var(--line-color)]", i !== index);
+                });
+                this.currentIndex = index;
+            };
+
+            const next = () => show((this.currentIndex + 1) % slides.length);
+
+            const restart = () => {
+                if (this.timer) clearInterval(this.timer);
+                this.timer = setInterval(next, intervalSeconds * 1000);
+            };
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener("click", () => {
+                    show(i);
+                    restart();
+                });
+            });
+
+            restart();
+        }
+
+        disconnectedCallback() {
+            if (this.timer) clearInterval(this.timer);
+        }
+    }
+
+    if (!customElements.get("partner-carousel")) {
+        customElements.define("partner-carousel", PartnerCarousel);
+    }
+</script>

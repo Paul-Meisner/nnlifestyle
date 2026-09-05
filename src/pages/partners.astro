@@ -1,0 +1,46 @@
+---
+export const prerender = true;
+
+import { getEntry, render } from "astro:content";
+
+import { partners } from "@constants/partners";
+import Markdown from "@components/common/markdown.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import PartnerContactCard from "@components/partnerContactCard.astro";
+
+const pageTitle = "Partners";
+const pageDescription = "Brands and practitioners featured on Now or Never, and how paid placements are disclosed.";
+
+const introPost = await getEntry("spec", "partners");
+const footerPost = await getEntry("spec", "partners-footer");
+
+if (!introPost || !footerPost) {
+    throw new Error("Partners page content not found");
+}
+
+const { Content: IntroContent } = await render(introPost);
+const { Content: FooterContent } = await render(footerPost);
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <Markdown class="mt-2">
+                <IntroContent />
+            </Markdown>
+
+            <h2 class="mt-6 mb-4 text-90">Featured partners</h2>
+            <div class="flex flex-col gap-4">
+                {partners.map((p) => (
+                    <PartnerContactCard partner={p} showSummary={true} />
+                ))}
+            </div>
+
+            <Markdown class="mt-8">
+                <FooterContent />
+            </Markdown>
+        </div>
+    </div>
+</GridLayout>

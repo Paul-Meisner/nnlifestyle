@@ -1,0 +1,127 @@
+/*
+ * 排版系统 - Typography system
+ * Fraunces 用于标题 (headings)，Inter 用于正文与界面 (body/UI)
+ */
+
+:root {
+    --font-heading: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+    --font-body: "Inter Variable", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* 正文测量宽度上限 (68-72 字符) */
+    --measure: 70ch;
+    /* Fraunces 可变字体轴 - WONK 关闭，SOFT 默认 0 (更严肃可调至 20) */
+    --heading-soft: 0;
+    --heading-wonk: 0;
+}
+
+/* 使用比 FontLoader 生成的 `body { font-family }` 规则更高的选择器特异性，
+   以确保 Inter 始终作为默认正文字体，不受用户自定义字体配置影响 */
+html body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.65;
+}
+
+@media (min-width: 768px) {
+    html body {
+        font-size: 18px;
+    }
+}
+
+/* 引言/导语段落 */
+.lead {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.65;
+}
+
+@media (min-width: 768px) {
+    .lead {
+        font-size: 21px;
+    }
+}
+
+/* 小字/说明文字/元信息 */
+.text-meta,
+.caption {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    .text-meta,
+    .caption {
+        font-size: 15px;
+    }
+}
+
+/* 正文中的加粗文本使用 600 而非 700，避免过重 */
+body strong,
+body b {
+    font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-optical-sizing: none;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 34, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 28, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: 0;
+    font-variation-settings: "opsz" 22, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+}
+
+h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+h4 {
+    font-size: 20px;
+    font-variation-settings: "opsz" 20, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+}
+
+h5 {
+    font-size: 18px;
+    font-variation-settings: "opsz" 18, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+}
+
+h6 {
+    font-size: 16px;
+    font-variation-settings: "opsz" 16, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 48px;
+        font-variation-settings: "opsz" 48, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+    }
+    h2 {
+        font-size: 34px;
+        font-variation-settings: "opsz" 34, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+    }
+    h3 {
+        font-size: 25px;
+        font-variation-settings: "opsz" 25, "SOFT" var(--heading-soft), "WONK" var(--heading-wonk);
+    }
+}

@@ -1,0 +1,55 @@
+---
+import type { Contributor } from "@constants/contributors";
+import { url } from "@utils/url";
+import ImageWrapper from "@components/common/imageWrapper.astro";
+
+interface Props {
+    contributor: Contributor;
+    class?: string;
+    // Whether to show the "View all posts by X" link — off by default since some
+    // callers (like /about/) may want to link elsewhere or not at all.
+    showViewPosts?: boolean;
+}
+
+const { contributor, class: className, showViewPosts = false } = Astro.props;
+
+function initialsFor(name: string): string {
+    return name
+        .replace(/[.,[\]]/g, "")
+        .split(" ")
+        .filter(Boolean)
+        .map((n) => n[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+}
+---
+
+<div class:list={[className, "card-base flex flex-col sm:flex-row gap-5 p-6"]}>
+    {contributor.photo ? (
+        <ImageWrapper
+            src={contributor.photo}
+            alt={contributor.name}
+            class="w-20 h-20 rounded-full overflow-hidden shrink-0"
+        />
+    ) : (
+        <div class="w-20 h-20 rounded-full shrink-0 flex items-center justify-center bg-[var(--btn-regular-bg)] text-[var(--btn-content)] font-bold text-xl" aria-hidden="true">
+            {initialsFor(contributor.name)}
+        </div>
+    )}
+    <div class="flex-1">
+        <h3 class="text-xl font-semibold mb-1 text-90">{contributor.name}</h3>
+        <div class="text-xs uppercase tracking-wide text-black/50 dark:text-white/50 mb-2">
+            {contributor.role}
+        </div>
+        <p class="text-sm text-black/70 dark:text-white/70">{contributor.blurb}</p>
+        {contributor.professionalLinksNote && (
+            <p class="text-sm italic text-black/50 dark:text-white/50 mt-2">{contributor.professionalLinksNote}</p>
+        )}
+        {showViewPosts && (
+            <a href={url(`/author/${contributor.slug}/`)} class="inline-block mt-2 text-sm font-medium text-[var(--primary)]">
+                View all posts by {contributor.name.split(" ")[0]} →
+            </a>
+        )}
+    </div>
+</div>

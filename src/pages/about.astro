@@ -1,0 +1,68 @@
+---
+export const prerender = true;
+
+
+import { getEntry, render } from "astro:content";
+
+import { LinkPresets } from "@constants/link-presets";
+import { LinkPreset } from "@/types/config";
+import { contributors } from "@constants/contributors";
+import Markdown from "@components/common/markdown.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import AuthorCard from "@components/authorCard.astro";
+
+
+const pageTitle = LinkPresets[LinkPreset.About].name;
+const pageDescription = LinkPresets[LinkPreset.About].description;
+
+const aboutPost = await getEntry("spec", "about");
+const aboutFooterPost = await getEntry("spec", "about-footer");
+
+if (!aboutPost || !aboutFooterPost) {
+    throw new Error("About page content not found");
+}
+
+const { Content } = await render(aboutPost);
+const { Content: FooterContent } = await render(aboutFooterPost);
+const paul = contributors.find((c) => c.slug === "paul-meisner")!;
+
+// Canonical Person @id for Paul Meisner — referenced from the author archive,
+// article bylines, and the contributors/partners copy. Do not declare a second one.
+const personId = new URL("/about/#person-paul-meisner", Astro.site).toString();
+const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": personId,
+    name: "Paul Meisner",
+    jobTitle: "Founder and Editor",
+    url: new URL("/about/", Astro.site).toString(),
+    worksFor: {
+        "@type": "Organization",
+        name: "Now or Never",
+        url: Astro.site,
+    },
+    // TODO: fill in once set up — LinkedIn, X, Instagram (see /about/ placeholders)
+    sameAs: [],
+};
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <Markdown class="mt-2">
+                <Content />
+            </Markdown>
+
+            <h2 class="mt-6 mb-4 text-90">About the author</h2>
+            <AuthorCard contributor={paul} showViewPosts={true} />
+
+            <Markdown class="mt-8">
+                <FooterContent />
+            </Markdown>
+        </div>
+    </div>
+</GridLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />

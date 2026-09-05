@@ -1,0 +1,60 @@
+---
+export const prerender = true;
+
+import { getEntry, render } from "astro:content";
+import { partners } from "@constants/partners";
+import Markdown from "@components/common/markdown.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import PartnerHero from "@components/partnerHero.astro";
+import PartnerContactCard from "@components/partnerContactCard.astro";
+
+const partner = partners.find((p) => p.slug === "flight-foods")!;
+const pageTitle = "Flight Foods";
+const pageDescription = "Partner feature: a faith-based supplement company dedicated to providing clean, high-performance nutrition grounded in Christian values.";
+
+const flightFoodsPost = await getEntry("spec", "flight-foods");
+
+if (!flightFoodsPost) {
+    throw new Error("Flight Foods page content not found");
+}
+
+const { Content } = await render(flightFoodsPost);
+
+const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: pageTitle,
+    description: pageDescription,
+    url: Astro.url.toString(),
+    datePublished: "2026-09-04",
+    dateModified: "2026-09-04",
+    author: {
+        "@id": new URL("/about/#person-paul-meisner", Astro.site).toString(),
+    },
+    sponsor: {
+        "@type": "Organization",
+        name: "Flight Foods",
+        url: "https://flight-foods.com/",
+        sameAs: [],
+    },
+};
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <span class="inline-block mt-2 px-2.5 py-1 rounded-md text-xs font-medium tracking-wide uppercase bg-[var(--btn-regular-bg)] text-[var(--btn-content)]">
+                Partner feature
+            </span>
+            <PartnerHero partner={partner} />
+            <PartnerContactCard partner={partner} class="mt-4" />
+            <Markdown class="mt-6">
+                <Content />
+            </Markdown>
+        </div>
+    </div>
+</GridLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(articleSchema)} />

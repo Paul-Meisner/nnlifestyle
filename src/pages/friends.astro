@@ -1,0 +1,119 @@
+---
+import { getEntry, render } from "astro:content";
+
+import { LinkPresets } from "@constants/link-presets";
+import { LinkPreset } from "@/types/config";
+import { friendsData } from "@utils/friends";
+import Markdown from "@components/common/markdown.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+
+
+const pageTitle = LinkPresets[LinkPreset.Friends].name;
+const pageDescription = LinkPresets[LinkPreset.Friends].description;
+
+const friendsPost = await getEntry("spec", "friends");
+
+if (!friendsPost) {
+    throw new Error("friends page content not found");
+}
+
+const { Content } = await render(friendsPost);
+const items = friendsData;
+
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
+const shuffledItems = shuffleArray(items);
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <!-- 标题 -->
+            <header class="mb-8">
+                <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-3">
+                    {pageTitle}
+                </h1>
+                {pageDescription && (
+                    <p class="text-neutral-600 dark:text-neutral-400">
+                        {pageDescription}
+                    </p>
+                )}
+            </header>
+            <!-- 链接网格 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-4">
+                {shuffledItems.map((item) => (
+                    <a href={item.siteurl} target="_blank" rel="noopener noreferrer" class="menu-card group flex flex-row items-center p-4 rounded-xl border transition-all duration-300 gap-4">
+                        <div class="icon-wrapper w-20 h-20 flex-shrink-0 flex items-center justify-center rounded-full transition-all duration-300 overflow-hidden bg-zinc-200 dark:bg-zinc-900">
+                            <img src={item.imgurl} alt={item.title} class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                        </div>
+                        <div class="flex flex-col justify-center overflow-hidden">
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-[var(--primary)] transition-colors duration-300 truncate">
+                                    {item.title}
+                                </h2>
+                                <svg class="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </div>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-1 mt-1">
+                                {item.desc}
+                            </p>
+                            {item.tags && item.tags.length > 0 && (
+                                <div class="flex flex-wrap gap-1.5 mt-2">
+                                    {item.tags.slice(0, 2).map((tag) => (
+                                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                    {item.tags.length > 2 && (
+                                        <span class="text-[10px] px-2 py-0.5 text-neutral-400">
+                                            +{item.tags.length - 2}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </a>
+                ))}
+            </div>
+            <Markdown class="mt-2">
+                <Content />
+            </Markdown>
+        </div>
+    </div>
+</GridLayout>
+
+<style>
+    .menu-card {
+        cursor: pointer;
+        background-color: none;
+        border-color: var(--line-divider);
+    }
+
+    .icon-wrapper {
+        background-color: color-mix(in oklch, var(--primary), transparent 85%);
+        color: var(--primary);
+    }
+
+    .menu-card:hover {
+        background-color: color-mix(in oklch, var(--primary), transparent 95%);
+        border-color: var(--primary);
+        box-shadow: 0 0 20px color-mix(in oklch, var(--primary), transparent 80%);
+        transform: translateY(-4px);
+    }
+
+    .menu-card:hover .icon-wrapper {
+        background-color: var(--primary);
+        color: white;
+        box-shadow: 0 0 15px color-mix(in oklch, var(--primary), transparent 50%);
+    }
+</style>

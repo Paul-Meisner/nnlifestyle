@@ -1,0 +1,36 @@
+---
+import { Icon } from "astro-icon/components";
+import WidgetLayout from "./widgetLayout.astro";
+
+
+interface Props {
+    class?: string;
+    style?: string;
+    side?: string;
+}
+const { class: className, style, side = "default" } = Astro.props;
+
+// Placeholder URLs — swap in the real profile links when they're ready.
+const socials = [
+    { name: "Instagram", icon: "fa6-brands:instagram", url: "#" },
+    { name: "Facebook", icon: "fa6-brands:facebook", url: "#" },
+    { name: "LinkedIn", icon: "fa6-brands:linkedin", url: "#" },
+];
+---
+
+<WidgetLayout name="Follow Along" id={`social-links-${side}`} class={className} style={style}>
+    <div class="flex gap-2 justify-start">
+        {socials.map((s) => (
+            <a
+                href={s.url}
+                aria-label={s.name}
+                title={`${s.name} — link pending`}
+                target="_blank"
+                rel="noopener"
+                class="btn-regular rounded-lg h-10 w-10 flex items-center justify-center active:scale-90"
+            >
+                <Icon name={s.icon} class="text-[1.25rem]" />
+            </a>
+        ))}
+    </div>
+</WidgetLayout>

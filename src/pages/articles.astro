@@ -1,0 +1,33 @@
+---
+import { LinkPresets } from "@constants/link-presets";
+import { LinkPreset } from "@/types/config";
+import { getSortedPostsList } from "@utils/content";
+import ArchivePanel from "@components/archivePanel.svelte";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+
+const pageTitle = "Articles";
+const pageDescription = "Browse all published articles. Search and filter by tag or category.";
+const sortedPostsList = await getSortedPostsList();
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <!-- Title -->
+            <header class="mb-8">
+                <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-3">
+                    {pageTitle}
+                </h1>
+                {pageDescription && (
+                    <p class="text-neutral-600 dark:text-neutral-400">
+                        {pageDescription}
+                    </p>
+                )}
+            </header>
+            <!-- Article panel -->
+            <ArchivePanel sortedPosts={sortedPostsList} client:load="svelte"></ArchivePanel>
+        </div>
+    </div>
+</GridLayout>

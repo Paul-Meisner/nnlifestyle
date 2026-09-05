@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+
+import type { PartnerBrand } from "@constants/partners";
+import { url } from "@utils/url";
+
+interface Props {
+    partner: PartnerBrand;
+}
+
+const { partner } = Astro.props;
+---
+
+<div class="w-full h-48 md:h-64 rounded-[var(--radius-large)] overflow-hidden relative mt-3">
+    {partner.heroImage ? (
+        <img src={url(partner.heroImage)} alt={`${partner.name} — hero image`} class="w-full h-full object-cover" loading="lazy" />
+    ) : (
+        <div
+            class="w-full h-full flex flex-col items-center justify-center gap-2 text-white/70"
+            style="background: linear-gradient(135deg, oklch(0.5 0.05 var(--hue)), oklch(0.3 0.04 var(--hue)));"
+        >
+            <Icon name="material-symbols:image-outline-rounded" class="text-5xl" />
+            <span class="text-sm font-medium tracking-wide">Placeholder — photo pending</span>
+        </div>
+    )}
+</div>
