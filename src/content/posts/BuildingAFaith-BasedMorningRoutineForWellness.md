@@ -4,7 +4,8 @@ published: 2026-01-27
 description: "How to create a morning routine that integrates faith, wellness, and purpose."
 tags: ["faith", "wellness", "morning routine", "habits"]
 category: "Wellness"
-draft: false
+draft: true
+routeName: "wellness/building-a-faith-based-morning-routine-for-wellness"
 ---
 
 ## Introduction

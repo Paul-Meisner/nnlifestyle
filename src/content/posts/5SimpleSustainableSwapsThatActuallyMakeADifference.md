@@ -4,7 +4,8 @@ published: 2026-01-27
 description: "Easy, high-impact sustainability swaps you can make today—no perfection required."
 tags: ["sustainability", "eco-friendly", "lifestyle", "environment"]
 category: "Sustainability"
-draft: false
+draft: true
+routeName: "sustainability/5-simple-sustainable-swaps-that-actually-make-a-difference"
 ---
 
 ## Introduction

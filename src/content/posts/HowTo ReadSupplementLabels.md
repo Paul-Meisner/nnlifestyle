@@ -5,6 +5,7 @@ description: "Learn the most common red flags on supplement labels that separate
 tags: ["supplements", "health", "nutrition", "education"]
 category: "Supplements"
 draft: true
+routeName: "supplements/how-to-read-supplement-labels"
 ---
 
 Most people take supplements without ever reading the label. Not because they don't care, but because supplement labels are confusing by design.

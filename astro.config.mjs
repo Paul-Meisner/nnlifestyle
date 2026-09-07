@@ -41,6 +41,11 @@ export default defineConfig({
     base: "/",
     trailingSlash: "always",
     adapter: adapter,
+    redirects: {
+        // Old unlabeled "brand story" post about a paid partner — folded into
+        // the disclosed feature page instead of staying as unlabeled editorial.
+        "/posts/fromdormroomtomission-drivenbrand/": "/partners/flight-foods/",
+    },
     integrations: [
         decapCmsOauth({
             decapCMSVersion: "3.3.3",

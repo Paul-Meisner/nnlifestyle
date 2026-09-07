@@ -190,6 +190,11 @@ navbar:
             url: "/partners/"
             icon: "material-symbols:handshake-outline"
             description: "Brands and practitioners featured on Now or Never, and how paid placements are disclosed."
+        - # 一级导航链接 - 撰稿人 (自定义)
+            name: "Contributors"
+            url: "/contributors/"
+            icon: "material-symbols:group"
+            description: "Who writes for Now or Never, and why we asked them."
         - # 一级导航链接 - 关于 (自定义)
             # 导航名称
             name: "About"
@@ -199,13 +204,6 @@ navbar:
             icon: "material-symbols:info"
             # 导航描述
             description: "Learn about Now or Never Lifestyle's mission and editorial standards."
-            # 子链接
-            children:
-                - # 二级导航链接 - Contributors
-                    name: "Contributors"
-                    url: "/contributors/"
-                    icon: "material-symbols:group"
-                    description: "Who writes for Now or Never, and why we asked them"
 
 # 侧边栏配置
 sidebar:
