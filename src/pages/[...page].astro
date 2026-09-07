@@ -22,10 +22,14 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 
 const len = page.data.length;
+
+const isFirstPage = page.currentPage === 1;
+const homeTitle = "Now or Never | Faith, Fitness and the Long Game — Paul Meisner";
+const homeDescription = "Practical, no-nonsense writing on faith, fitness, nutrition and intentional living. The decision is now or never. The work is daily.";
 ---
 
-<GridLayout>
-    {page.currentPage === 1 && <HomeAboutSection class="mb-4 onload-animation-up" />}
+<GridLayout fullTitle={isFirstPage ? homeTitle : undefined} description={isFirstPage ? homeDescription : undefined}>
+    {isFirstPage && <HomeAboutSection class="mb-4 onload-animation-up" />}
     <PostPage page={page}></PostPage>
     <Pagination class="mx-auto onload-animation-up" page={page} style={`animation-delay: ${(len)*50}ms`}></Pagination>
 </GridLayout>

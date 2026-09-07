@@ -249,7 +249,6 @@ export type WidgetComponentType =
     | "announcement"
     | "categories"
     | "tags"
-    | "partners"
     | "featuredPartner"
     | "socialLinks"
     | "contactCta"

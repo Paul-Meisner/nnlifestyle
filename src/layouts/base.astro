@@ -32,6 +32,10 @@ import "@styles/fancybox.css";
 
 interface Props {
     title?: string;
+    // Used verbatim for <title>/og:title/twitter:title, bypassing the
+    // "title - siteConfig.title" concatenation below — for pages (like the
+    // homepage) that need an exact, deliberately-written SEO title.
+    fullTitle?: string;
     banner?: string;
     description?: string;
     lang?: string;
@@ -39,7 +43,7 @@ interface Props {
     postSlug?: string;
 }
 
-let { title, banner, description, lang, setOGTypeArticle, postSlug } = Astro.props;
+let { title, fullTitle, banner, description, lang, setOGTypeArticle, postSlug } = Astro.props;
 
 // apply a class to the body element to decide the height of the banner, only used for initial page load
 const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
@@ -90,7 +94,9 @@ banner = getDefaultBanner();
 const enableBanner = siteConfig.wallpaper.mode === "banner";
 
 let pageTitle: string;
-if (title) {
+if (fullTitle) {
+    pageTitle = fullTitle;
+} else if (title) {
     pageTitle = `${title} - ${siteConfig.title}`;
 } else {
     pageTitle = siteConfig.subtitle

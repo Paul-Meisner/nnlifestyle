@@ -25,6 +25,7 @@ import "@styles/grid.css";
 
 interface Props {
     title?: string;
+    fullTitle?: string;
     banner?: string;
     description?: string;
     lang?: string;
@@ -35,6 +36,7 @@ interface Props {
 
 const {
     title,
+    fullTitle,
     banner,
     description,
     lang,
@@ -82,6 +84,7 @@ const {
 
 <BaseLayout
     title={title}
+    fullTitle={fullTitle}
     banner={banner}
     description={description}
     lang={lang}

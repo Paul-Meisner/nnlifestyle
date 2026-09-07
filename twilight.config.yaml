@@ -237,11 +237,6 @@ sidebar:
                 responsive:
                     # 折叠阈值
                     collapseThreshold: 5
-            - # 组件 - 合作伙伴
-                # 类型
-                type: "partners"
-                # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
-                position: "sticky"
             - # 组件 - 联系我们
                 # 类型
                 type: "contactCta"
@@ -258,14 +253,14 @@ sidebar:
                 customProps:
                     # 目录深度 (1-6，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推)
                     depth: 3
-            - # 组件 - 精选合作伙伴
-                # 类型
-                type: "featuredPartner"
-                # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
-                position: "sticky"
             - # 组件 - 最近文章 (预设)
                 # 类型
                 type: "recentPosts"
+                # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
+                position: "sticky"
+            - # 组件 - 精选合作伙伴
+                # 类型
+                type: "featuredPartner"
                 # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
                 position: "sticky"
 
@@ -283,9 +278,9 @@ profile:
 # 公告配置
 announcement:
     # 公告标题
-    title: "Announcement"
+    title: "Our Thesis"
     # 公告内容
-    content: "Welcome to my blog!"
+    content: "The decision is now or never. The work is daily."
     # 允许用户关闭公告
     closable: true
     # 链接配置

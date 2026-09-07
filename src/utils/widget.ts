@@ -14,7 +14,6 @@ export const WIDGET_COMPONENT_MAP = {
     announcement: "@components/sidebar/announcement.astro",
     categories: "@components/sidebar/categories.astro",
     tags: "@components/sidebar/tags.astro",
-    partners: "@components/sidebar/partners.astro",
     featuredPartner: "@components/sidebar/featuredPartner.astro",
     socialLinks: "@components/sidebar/socialLinks.astro",
     contactCta: "@components/sidebar/contactCta.astro",

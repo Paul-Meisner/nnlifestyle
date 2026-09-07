@@ -17,6 +17,10 @@ const { class: className, style, side = "default", interval = 6 } = Astro.props;
 
 {partners.length > 0 && (
     <WidgetLayout name="Featured Partners" id={`featured-partner-${side}`} class={className} style={style}>
+        <p class="text-xs text-black/50 dark:text-white/50 mb-3">
+            Paid promotion — partners compensate Now or Never for placement.
+            <a href={url('/disclosure/')} class="link text-[var(--primary)]">How this works →</a>
+        </p>
         <partner-carousel data-interval={interval} class="relative block">
             <div class="relative" style={`min-height: 11rem;`}>
                 {partners.map((partner, index) => (

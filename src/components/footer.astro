@@ -35,18 +35,9 @@ if (footerConfig.enable) {
 }
 ---
 
-<!-- 成为合作伙伴 / 成为撰稿人 -->
-<div class="w-full mt-10 mb-8 grid gap-4 sm:grid-cols-2">
-    <div class="card-base w-full px-6 py-6 flex flex-col items-center text-center gap-2">
-        <h3 class="mb-0 text-90">Become a partner</h3>
-        <p class="text-sm text-black/60 dark:text-white/60">
-            Featured brand placements for companies whose approach lines up with how this site thinks about health.
-        </p>
-        <a href={url('/partners/')} class="btn-regular rounded-lg px-3 py-1.5 text-sm font-medium active:scale-95 transition-transform mt-1">
-            Learn more
-        </a>
-    </div>
-    <div class="card-base w-full px-6 py-6 flex flex-col items-center text-center gap-2">
+<!-- 成为撰稿人 (「成为合作伙伴」CTA 已移除 — /partners/ 本身已承担这个引导) -->
+<div class="w-full mt-10 mb-8">
+    <div class="card-base w-full max-w-md mx-auto px-6 py-6 flex flex-col items-center text-center gap-2">
         <h3 class="mb-0 text-90">Become a contributor</h3>
         <p class="text-sm text-black/60 dark:text-white/60">
             Practitioners and professionals with real expertise are occasionally invited to write. Unpaid, and reviewed editorially.
@@ -64,7 +55,7 @@ if (footerConfig.enable) {
     </div>
     <div>
         <div class="font-bold text-black/90 dark:text-white/90 mb-1">{siteConfig.title}</div>
-        <div class="text-xs text-black/40 dark:text-white/40 mb-2">Established [YEAR]</div>
+        <div class="text-xs text-black/40 dark:text-white/40 mb-2">Established 2026</div>
         <p class="text-black/60 dark:text-white/60 mb-2">
             Now or Never is written primarily by its founder, covering health, fitness, nutrition, and intentional living.
         </p>
