@@ -34,7 +34,7 @@ const { Content: FooterContent } = await render(footerPost);
             <h2 class="mt-6 mb-4 text-90">Featured partners</h2>
             <div class="flex flex-col gap-4">
                 {partners.map((p) => (
-                    <PartnerContactCard partner={p} showSummary={true} />
+                    <PartnerContactCard partner={p} showReadMore={true} />
                 ))}
             </div>
 
