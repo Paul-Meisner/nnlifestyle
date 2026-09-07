@@ -33,7 +33,10 @@ const pillars = [
 ---
 
 <div class:list={[className, "card-base px-9 py-6"]}>
-    <h2 class="text-90 mb-1">The six pillars</h2>
+    <h2 class="flex items-center gap-2 mb-1">
+        <span class="w-1 h-5 rounded-md bg-[var(--primary)] hidden md:block"></span>
+        <span class="font-bold text-3xl text-90">The six pillars</span>
+    </h2>
     <p class="text-sm text-black/60 dark:text-white/60 mb-5">What this site is actually about, in six words.</p>
     <div class="grid sm:grid-cols-2 gap-x-8 gap-y-5">
         {pillars.map((p) => (

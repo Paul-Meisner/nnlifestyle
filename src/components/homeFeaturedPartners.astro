@@ -9,7 +9,10 @@ const { class: className } = Astro.props;
 ---
 
 <div class:list={[className, "card-base px-9 py-6"]}>
-    <h2 class="text-90 mb-1">Featured partners</h2>
+    <h2 class="flex items-center gap-2 mb-1">
+        <span class="w-1 h-5 rounded-md bg-[var(--primary)] hidden md:block"></span>
+        <span class="font-bold text-3xl text-90">Featured partners</span>
+    </h2>
     <p class="text-sm text-black/50 dark:text-white/50 mb-5">
         Paid promotion — partners compensate Now or Never for placement.
         <a href={url('/disclosure/')} class="link text-[var(--primary)]">How this works →</a>
