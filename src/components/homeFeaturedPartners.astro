@@ -1,0 +1,31 @@
+---
+import { partners } from "@constants/partners";
+import { url } from "@utils/url";
+
+interface Props {
+    class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={[className, "card-base px-9 py-6"]}>
+    <h2 class="text-90 mb-1">Featured partners</h2>
+    <p class="text-sm text-black/50 dark:text-white/50 mb-5">
+        Paid promotion — partners compensate Now or Never for placement.
+        <a href={url('/disclosure/')} class="link text-[var(--primary)]">How this works →</a>
+    </p>
+    <div class="grid sm:grid-cols-3 gap-4">
+        {partners.map((p) => (
+            <a
+                href={url(`/partners/${p.slug}/`)}
+                class="card-base group flex flex-col items-center text-center gap-2 p-5 transition-colors duration-150 hover:bg-[var(--btn-card-bg-hover)]"
+            >
+                <img src={url(p.logo)} alt={`${p.name} logo`} class="h-14 max-w-[70%] object-contain" loading="lazy" />
+                <h3 class="font-semibold text-90 transition-colors group-hover:text-[var(--primary)]">{p.name}</h3>
+                <div class="text-xs uppercase tracking-wide text-black/50 dark:text-white/50">
+                    {p.categories.join(" · ")}
+                </div>
+            </a>
+        ))}
+    </div>
+</div>

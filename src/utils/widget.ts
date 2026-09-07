@@ -266,10 +266,11 @@ export class WidgetManager {
     /**
      * 获取网格布局相关的类名
      * @param headings 页面标题列表
+     * @param options.forceHideRight 强制隐藏右侧侧边栏 (不受配置影响) — 用于首页等特定页面
      */
-    getGridLayout(headings: any[] = []) {
+    getGridLayout(headings: any[] = [], options: { forceHideRight?: boolean } = {}) {
         const hasLeftComponents = this.hasContentOnSide("left", headings);
-        const hasRightComponents = this.hasContentOnSide("right", headings);
+        const hasRightComponents = this.hasContentOnSide("right", headings) && !options.forceHideRight;
         const hasAnyComponents = hasLeftComponents || hasRightComponents;
 
         // Desktop: Left if hasLeft, Right if hasRight

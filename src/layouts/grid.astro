@@ -79,7 +79,7 @@ const {
     mainContentClass,
     mobileFooterClass,
     middleSidebarClass,
-} = widgetManager.getGridLayout(headings);
+} = widgetManager.getGridLayout(headings, { forceHideRight: isHomePage });
 ---
 
 <BaseLayout

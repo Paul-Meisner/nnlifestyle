@@ -10,6 +10,8 @@ import Pagination from "@components/pagination.astro";
 import PostPage from "@components/postPage.astro";
 import GridLayout from "@layouts/grid.astro";
 import HomeAboutSection from "@components/homeAboutSection.astro";
+import PillarsSection from "@components/pillarsSection.astro";
+import HomeFeaturedPartners from "@components/homeFeaturedPartners.astro";
 
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -30,6 +32,9 @@ const homeDescription = "Practical, no-nonsense writing on faith, fitness, nutri
 
 <GridLayout fullTitle={isFirstPage ? homeTitle : undefined} description={isFirstPage ? homeDescription : undefined}>
     {isFirstPage && <HomeAboutSection class="mb-4 onload-animation-up" />}
+    {isFirstPage && <h2 class="text-90 mb-4 onload-animation-up">Recent Articles</h2>}
     <PostPage page={page}></PostPage>
     <Pagination class="mx-auto onload-animation-up" page={page} style={`animation-delay: ${(len)*50}ms`}></Pagination>
+    {isFirstPage && <PillarsSection class="mt-8 onload-animation-up" />}
+    {isFirstPage && <HomeFeaturedPartners class="mt-4 onload-animation-up" />}
 </GridLayout>

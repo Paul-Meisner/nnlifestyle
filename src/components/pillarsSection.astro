@@ -1,0 +1,46 @@
+---
+interface Props {
+    class?: string;
+}
+const { class: className } = Astro.props;
+
+const pillars = [
+    {
+        name: "Faith",
+        blurb: "Health as stewardship, not vanity. The body is worth taking care of because it isn't yours alone to waste.",
+    },
+    {
+        name: "Fitness",
+        blurb: "Strength and capacity built through repeated, unglamorous effort — not thirty-day transformations.",
+    },
+    {
+        name: "Nutrition",
+        blurb: "Food as fuel and discipline, not a battleground of fads. What you eat is a daily decision, not a diet.",
+    },
+    {
+        name: "Mindset",
+        blurb: "Clarity and resilience come from how you think about setbacks, not from avoiding them.",
+    },
+    {
+        name: "Family",
+        blurb: "The people this is actually for. A health approach that doesn't account for family isn't one that lasts.",
+    },
+    {
+        name: "Health",
+        blurb: "The long view — maintained, not rescued. The measure of any approach is whether it still works in five years.",
+    },
+];
+---
+
+<div class:list={[className, "card-base px-9 py-6"]}>
+    <h2 class="text-90 mb-1">The six pillars</h2>
+    <p class="text-sm text-black/60 dark:text-white/60 mb-5">What this site is actually about, in six words.</p>
+    <div class="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+        {pillars.map((p) => (
+            <div>
+                <h3 class="font-semibold text-90 mb-1">{p.name}</h3>
+                <p class="text-sm text-black/70 dark:text-white/70">{p.blurb}</p>
+            </div>
+        ))}
+    </div>
+</div>
