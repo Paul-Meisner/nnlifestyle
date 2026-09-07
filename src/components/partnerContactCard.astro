@@ -14,10 +14,11 @@ interface Props {
 
 const { partner, class: className, showReadMore = false } = Astro.props;
 
-// No API key needed for this embed form — it just needs a query, not a place ID.
-const mapEmbedSrc = partner.address
-    ? `https://www.google.com/maps?q=${encodeURIComponent(partner.address)}&output=embed`
-    : null;
+// Prefer a real Google-generated embed (mapEmbedUrl) when one's on file; otherwise
+// fall back to a plain query-based embed built from the address — no API key needed
+// for either form.
+const mapEmbedSrc = partner.mapEmbedUrl
+    || (partner.address ? `https://www.google.com/maps?q=${encodeURIComponent(partner.address)}&output=embed` : null);
 ---
 
 <div class:list={[className, "card-base flex flex-col gap-5 p-5"]}>
@@ -61,6 +62,10 @@ const mapEmbedSrc = partner.address
                 <Icon name="material-symbols:location-on-outline-rounded" class="text-[1.1rem] mt-0.5 shrink-0 text-black/40 dark:text-white/40" />
                 <span>{partner.address || "Address — to be added"}</span>
             </div>
+
+            {partner.note && (
+                <p class="text-xs italic text-black/50 dark:text-white/50">{partner.note}</p>
+            )}
 
             <div class:list={["flex items-center gap-2 text-sm", !partner.phone && "text-black/40 dark:text-white/40 italic text-xs"]}>
                 <Icon name="material-symbols:call-outline-rounded" class="text-[1.1rem] shrink-0 text-black/40 dark:text-white/40" />

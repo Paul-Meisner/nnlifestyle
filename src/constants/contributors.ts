@@ -42,9 +42,9 @@ export const contributors: Contributor[] = [
         sameAs: [],
     },
     {
-        slug: "thomas",
+        slug: "thomas-lahart",
         tier: "guest",
-        name: "Thomas [Last name]",
+        name: "Thomas Lahart",
         role: "[Role] · Flight Foods",
         photo: "",
         blurb: "[BIO — 60–100 words, pending sign-off. What he does at Flight Foods, his background, and what makes his angle worth reading — years in the field, what he's actually built or done.]",
