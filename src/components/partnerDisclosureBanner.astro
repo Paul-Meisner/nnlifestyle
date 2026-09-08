@@ -1,0 +1,15 @@
+---
+import { url } from "@utils/url";
+
+interface Props {
+    partnerName: string;
+    class?: string;
+}
+
+const { partnerName, class: className } = Astro.props;
+---
+
+<div class:list={[className, "flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm text-black/60 dark:text-white/60"]}>
+    <span><strong class="text-90">Paid promotion</strong> — {partnerName} compensated Now or Never for this feature.</span>
+    <a href={url("/disclosure/")} class="link text-[var(--primary)] font-medium whitespace-nowrap">How this works →</a>
+</div>

@@ -3,11 +3,13 @@ export const prerender = true;
 
 import { getEntry, render } from "astro:content";
 import { partners } from "@constants/partners";
+import { url } from "@utils/url";
 import Markdown from "@components/common/markdown.astro";
 import GridLayout from "@layouts/grid.astro";
 import BackwardButton from "@components/backwardButton.astro";
 import PartnerHero from "@components/partnerHero.astro";
 import PartnerContactCard from "@components/partnerContactCard.astro";
+import PartnerDisclosureBanner from "@components/partnerDisclosureBanner.astro";
 
 const partner = partners.find((p) => p.slug === "genesis-chiropractic")!;
 const pageTitle = "Genesis Chiropractic";
@@ -48,6 +50,10 @@ const articleSchema = {
             <span class="inline-block mt-2 px-2.5 py-1 rounded-md text-xs font-medium tracking-wide uppercase bg-[var(--btn-regular-bg)] text-[var(--btn-content)]">
                 Partner feature
             </span>
+            <div class="mt-2 text-sm text-black/50 dark:text-white/50">
+                By <a href={url("/author/paul-meisner/")} class="link hover:text-[var(--primary)]">Paul Meisner</a>
+            </div>
+            <PartnerDisclosureBanner partnerName={partner.name} class="mt-2" />
             <PartnerHero partner={partner} />
             <PartnerContactCard partner={partner} class="mt-4" />
             <Markdown class="mt-6">
