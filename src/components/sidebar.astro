@@ -18,13 +18,18 @@ interface Props {
     class?: string;
     headings?: MarkdownHeading[];
     side: "left" | "right" | "middle";
+    // Widget types to omit from this render — e.g. the homepage moves "categories"
+    // out of the left sidebar without touching the global sidebar config.
+    excludeTypes?: string[];
 }
 
-const { id, class: className, headings, side } = Astro.props;
+const { id, class: className, headings, side, excludeTypes = [] } = Astro.props;
 
 // 获取配置的组件列表（按侧边栏和位置划分）
-const topComponents = widgetManager.getComponentsBySideAndPosition(side, "top");
-const stickyComponents = widgetManager.getComponentsBySideAndPosition(side, "sticky");
+const topComponents = widgetManager.getComponentsBySideAndPosition(side, "top")
+    .filter((c) => !excludeTypes.includes(c.type));
+const stickyComponents = widgetManager.getComponentsBySideAndPosition(side, "sticky")
+    .filter((c) => !excludeTypes.includes(c.type));
 
 // 组件映射表
 const componentMap = {

@@ -6,8 +6,10 @@ import type { GetStaticPaths } from "astro";
 
 import { PAGE_SIZE } from "@constants/constants";
 import { getSortedPosts } from "@utils/content";
+import { getPostUrl } from "@utils/url";
 import Pagination from "@components/pagination.astro";
 import PostPage from "@components/postPage.astro";
+import PostCard from "@components/post/postCard.astro";
 import GridLayout from "@layouts/grid.astro";
 import HomeAboutSection from "@components/homeAboutSection.astro";
 import PillarsSection from "@components/pillarsSection.astro";
@@ -32,14 +34,35 @@ const homeDescription = "Practical, no-nonsense writing on faith, fitness, nutri
 
 <GridLayout fullTitle={isFirstPage ? homeTitle : undefined} description={isFirstPage ? homeDescription : undefined}>
     {isFirstPage && <HomeAboutSection class="mb-4 onload-animation-up" />}
-    {isFirstPage && (
-        <h2 class="flex items-center gap-2 mb-4 onload-animation-up">
-            <span class="w-1 h-5 rounded-md bg-[var(--primary)] hidden md:block"></span>
-            <span class="font-bold text-3xl text-90">Recent Articles</span>
-        </h2>
+    {isFirstPage ? (
+        <>
+            <h2 class="flex items-center gap-2 mb-4 onload-animation-up">
+                <span class="w-1 h-5 rounded-md bg-[var(--primary)] hidden md:block"></span>
+                <span class="font-bold text-3xl text-90">Featured Article</span>
+            </h2>
+            {page.data[0] && (
+                <PostCard
+                    entry={page.data[0]}
+                    title={page.data[0].data.title}
+                    tags={page.data[0].data.tags}
+                    category={page.data[0].data.category}
+                    published={page.data[0].data.published}
+                    updated={page.data[0].data.updated}
+                    url={getPostUrl(page.data[0])}
+                    cover={page.data[0].data.cover}
+                    description={page.data[0].data.description}
+                    draft={page.data[0].data.draft}
+                    pinned={page.data[0].data.pinned}
+                    class="onload-animation-up"
+                ></PostCard>
+            )}
+        </>
+    ) : (
+        <>
+            <PostPage page={page}></PostPage>
+            <Pagination class="mx-auto onload-animation-up" page={page} style={`animation-delay: ${(len)*50}ms`}></Pagination>
+        </>
     )}
-    <PostPage page={page}></PostPage>
-    <Pagination class="mx-auto onload-animation-up" page={page} style={`animation-delay: ${(len)*50}ms`}></Pagination>
     {isFirstPage && <PillarsSection class="mt-8 onload-animation-up" />}
     {isFirstPage && <HomeFeaturedPartners class="mt-4 onload-animation-up" />}
 </GridLayout>
