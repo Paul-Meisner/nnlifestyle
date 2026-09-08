@@ -1,31 +1,48 @@
 ---
 export const prerender = true;
 
-
-import { getEntry, render } from "astro:content";
-
 import { LinkPresets } from "@constants/link-presets";
 import { LinkPreset } from "@/types/config";
 import { contributors } from "@constants/contributors";
-import Markdown from "@components/common/markdown.astro";
+import { url } from "@utils/url";
 import GridLayout from "@layouts/grid.astro";
 import BackwardButton from "@components/backwardButton.astro";
-import AuthorCard from "@components/authorCard.astro";
+import ImageWrapper from "@components/common/imageWrapper.astro";
+import { Icon } from "astro-icon/components";
 
 
 const pageTitle = LinkPresets[LinkPreset.About].name;
 const pageDescription = LinkPresets[LinkPreset.About].description;
 
-const aboutPost = await getEntry("spec", "about");
-const aboutFooterPost = await getEntry("spec", "about-footer");
-
-if (!aboutPost || !aboutFooterPost) {
-    throw new Error("About page content not found");
-}
-
-const { Content } = await render(aboutPost);
-const { Content: FooterContent } = await render(aboutFooterPost);
 const paul = contributors.find((c) => c.slug === "paul-meisner")!;
+
+const principles = [
+    {
+        title: "Evidence over hype",
+        blurb: "Where the research is unsettled, we say so instead of picking the exciting side.",
+    },
+    {
+        title: "Discipline over shortcuts",
+        blurb: "No protocols built on extremes. No pretending the hard part is optional.",
+    },
+    {
+        title: "Five-year outcomes",
+        blurb: "The question we ask of any approach is whether it still works in five years.",
+    },
+    {
+        title: "Plain language",
+        blurb: "Guidance that needs a decoder ring isn't guidance.",
+    },
+];
+
+const topics = [
+    "Health fundamentals",
+    "Fitness and recovery",
+    "Nutrition and supplementation",
+    "Mindset and resilience",
+    "Faith-aligned living",
+    "Sustainable habits",
+];
 
 // Canonical Person @id for Paul Meisner — referenced from the author archive,
 // article bylines, and the contributors/partners copy. Do not declare a second one.
@@ -51,16 +68,102 @@ const personSchema = {
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
 
-            <h2 class="mt-6 mb-4 text-90">About the author</h2>
-            <AuthorCard contributor={paul} showViewPosts={true} />
+            <p class="font-serif text-2xl md:text-3xl text-90 text-center mt-6">
+                "The decision is now or never. The work is daily."
+            </p>
 
-            <Markdown class="mt-8">
-                <FooterContent />
-            </Markdown>
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <p class="mt-6 max-w-[var(--measure)]">
+                Now or Never is an independent publication covering health, fitness, nutrition, and intentional living. It was founded by <span class="text-90 font-semibold">Paul Meisner</span> on a single premise: the hardest part of getting healthy isn't the training or the diet. It's deciding to start, and then not quitting once it stops being interesting.
+            </p>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <div class="grid sm:grid-cols-2 gap-4 mt-8">
+                <div class="bg-[var(--btn-regular-bg)] rounded-[var(--radius-large)] p-6">
+                    <h2 class="font-serif text-2xl text-90 mb-2">Now</h2>
+                    <p class="text-sm text-black/70 dark:text-white/70">Waiting for the right moment is how most people spend a decade. There isn't a better January. The decision is available today and it costs nothing to make.</p>
+                </div>
+                <div class="bg-[var(--btn-regular-bg)] rounded-[var(--radius-large)] p-6">
+                    <h2 class="font-serif text-2xl text-90 mb-2">Never</h2>
+                    <p class="text-sm text-black/70 dark:text-white/70">Not a threat, a fact. Time is the one input you can't buy back, and the compounding you skip in your thirties isn't recoverable in your fifties.</p>
+                </div>
+            </div>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <h2 class="mt-8 mb-4 text-90">Editorial standards</h2>
+            <div class="grid sm:grid-cols-2 gap-x-8 gap-y-6">
+                {principles.map((p) => (
+                    <div class="border-l-2 border-[var(--primary)] pl-4">
+                        <h3 class="font-bold text-90 mb-1">{p.title}</h3>
+                        <p class="text-sm text-black/70 dark:text-white/70">{p.blurb}</p>
+                    </div>
+                ))}
+            </div>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <h2 class="mt-8 mb-4 text-90">What we cover</h2>
+            <div class="flex flex-wrap gap-2">
+                {topics.map((t) => (
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70">{t}</span>
+                ))}
+            </div>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <h2 class="mt-8 mb-4 text-90">Who writes it</h2>
+            <div class="card-base flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 md:p-8">
+                <ImageWrapper
+                    src={paul.photo}
+                    alt={paul.name}
+                    class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden shrink-0"
+                />
+                <div class="text-center sm:text-left">
+                    <h3 class="text-xl font-bold text-90">{paul.name}</h3>
+                    <div class="text-xs uppercase tracking-wide text-black/50 dark:text-white/50 mt-1 mb-3">{paul.role}</div>
+                    <p class="text-sm text-black/70 dark:text-white/70 max-w-[var(--measure)]">{paul.blurb}</p>
+                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-3 text-sm font-medium">
+                        <a href={url("/author/paul-meisner/")} class="text-[var(--primary)] hover:underline">All posts by Paul →</a>
+                        <span class="text-black/30 dark:text-white/30">·</span>
+                        <span class="text-[var(--primary)]">LinkedIn</span>
+                        <span class="text-black/30 dark:text-white/30">·</span>
+                        <span class="text-[var(--primary)]">Instagram</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                <div class="flex items-start gap-3 rounded-[var(--radius-large)] p-5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                    <Icon name="material-symbols:stethoscope-outline-rounded" class="text-2xl shrink-0 mt-0.5 text-black/50 dark:text-white/50" />
+                    <div>
+                        <h4 class="font-semibold text-90 mb-1">On health content</h4>
+                        <p class="text-sm text-black/70 dark:text-white/70">Educational only. Not medical advice, not a substitute for your own provider. Talk to a doctor before changing anything.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 rounded-[var(--radius-large)] p-5 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25">
+                    <Icon name="material-symbols:visibility-outline-rounded" class="text-2xl shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                    <div>
+                        <h4 class="font-semibold text-amber-900 dark:text-amber-200 mb-1">On paid placements</h4>
+                        <p class="text-sm text-amber-800/90 dark:text-amber-200/80">
+                            Some features are paid and every one is labeled. Payment never buys a favorable opinion. <a href={url("/disclosure/")} class="font-medium hover:underline">Full disclosure →</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <p class="font-serif text-xl md:text-2xl text-90 mt-8">Health isn't about perfection. It's responsibility, discipline and informed choices made repeatedly over time.</p>
+            <p class="text-sm text-black/60 dark:text-white/60 italic mt-2">The decision is now or never. Everything after that is just showing up.</p>
+
+            <div class="flex flex-wrap gap-3 mt-6">
+                <a href={url("/articles/")} class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-[var(--primary)] text-white text-sm font-medium hover:opacity-90 transition-opacity">Read the latest</a>
+                <a href={url("/partners/")} class="btn-regular px-5 py-2.5 rounded-lg text-sm font-medium">Partner with us</a>
+            </div>
         </div>
     </div>
 </GridLayout>
