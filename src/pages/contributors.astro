@@ -47,7 +47,7 @@ function initialsFor(name: string): string {
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
 
-            <h1 class="mt-4 mb-4 text-90">Contributors</h1>
+            <h1 class="mt-4 mb-4 text-90 text-4xl md:text-5xl font-bold">Contributors</h1>
 
             <p class="font-bold text-lg text-90 relative ml-8 mb-6
                 before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
@@ -62,14 +62,14 @@ function initialsFor(name: string): string {
                 Guest contributors are invited on the strength of what they know. We don't pay for guest articles and nobody pays us to publish one. Where a contributor is connected to a brand featured on this site, we say so on their entry.
             </p>
 
-            <h2 class="mt-6 mb-4 text-90">Permanent authors</h2>
+            <h2 class="mt-6 mb-4 text-90 text-3xl font-bold">Permanent authors</h2>
             <div class="flex flex-col gap-4">
                 {permanentAuthors.map((c) => (
                     <AuthorCard contributor={c} showViewPosts={true} />
                 ))}
             </div>
 
-            <h2 class="mt-8 mb-1 text-90">Guest contributors</h2>
+            <h2 class="mt-8 mb-1 text-90 text-3xl font-bold">Guest contributors</h2>
             <p class="text-sm text-black/50 dark:text-white/50 mb-4">Invited writers. Not staff, not paid, not paying.</p>
             <div class="flex flex-col gap-3">
                 {guestContributors.map((c) => {

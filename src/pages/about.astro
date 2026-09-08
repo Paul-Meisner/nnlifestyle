@@ -69,7 +69,7 @@ const personSchema = {
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
 
-            <h1 class="mt-4 mb-4 text-90">About Us</h1>
+            <h1 class="mt-4 mb-4 text-90 text-4xl md:text-5xl font-bold">About Us</h1>
 
             <p class="font-bold text-lg text-90 relative ml-8 mt-6 mb-6
                 before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
@@ -96,7 +96,7 @@ const personSchema = {
 
             <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
 
-            <h2 class="mt-8 mb-4 text-90">Editorial standards</h2>
+            <h2 class="mt-8 mb-4 text-90 text-3xl font-bold">Editorial standards</h2>
             <div class="grid sm:grid-cols-2 gap-x-8 gap-y-6">
                 {principles.map((p) => (
                     <div class="border-l-2 border-[var(--primary)] pl-4">
@@ -108,7 +108,7 @@ const personSchema = {
 
             <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
 
-            <h2 class="mt-8 mb-4 text-90">What we cover</h2>
+            <h2 class="mt-8 mb-4 text-90 text-3xl font-bold">What we cover</h2>
             <div class="flex flex-wrap gap-2">
                 {topics.map((t) => (
                     <span class="px-3 py-1 rounded-full text-xs font-medium bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70">{t}</span>
@@ -117,7 +117,7 @@ const personSchema = {
 
             <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
 
-            <h2 class="mt-8 mb-4 text-90">Who writes it</h2>
+            <h2 class="mt-8 mb-4 text-90 text-3xl font-bold">Who writes it</h2>
             <div class="card-base flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 md:p-8">
                 <ImageWrapper
                     src={paul.photo}

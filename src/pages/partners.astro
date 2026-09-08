@@ -21,7 +21,7 @@ const standards = [
         blurb: "Named people, a track record, actual customers. Not a white-label store with a logo.",
     },
     {
-        title: "A long view",
+        title: "The long game",
         blurb: "Brands built to still be here in ten years, run by people who talk that way.",
     },
 ];
@@ -32,7 +32,7 @@ const standards = [
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
 
-            <h1 class="mt-4 mb-4 text-90">Partners</h1>
+            <h1 class="mt-4 mb-4 text-90 text-4xl md:text-5xl font-bold">Partners</h1>
 
             <p class="font-bold text-lg text-90 relative ml-8 mb-6
                 before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
@@ -56,7 +56,7 @@ const standards = [
 
             <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
 
-            <h2 class="mt-8 mb-4 text-90">Featured partners</h2>
+            <h2 class="mt-8 mb-4 text-90 text-3xl font-bold">Featured partners</h2>
             <div class="flex flex-col gap-4">
                 {partners.map((p) => (
                     <PartnerContactCard partner={p} showReadMore={true} />
@@ -65,7 +65,7 @@ const standards = [
 
             <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
 
-            <h2 class="mt-8 mb-4 text-90">How a brand ends up here</h2>
+            <h2 class="mt-8 mb-4 text-90 text-3xl font-bold">How a brand ends up here</h2>
             <div class="grid sm:grid-cols-3 gap-x-8 gap-y-6">
                 {standards.map((s) => (
                     <div class="border-l-2 border-[var(--primary)] pl-4">
