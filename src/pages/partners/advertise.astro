@@ -1,0 +1,160 @@
+---
+export const prerender = true;
+
+import { url } from "@utils/url";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+import { Icon } from "astro-icon/components";
+
+const pageTitle = "Partner with us";
+const pageDescription = "A page on a publication that turns brands down — what a Now or Never partner feature includes, and what it costs.";
+
+const tiers = [
+    {
+        name: "Listed",
+        price: "Free",
+        note: "Invitation only",
+        features: [
+            "Entry on the partners page",
+            "Logo, category, one line",
+            "Link to your site",
+        ],
+        highlight: false,
+    },
+    {
+        name: "Featured",
+        price: "From $—",
+        note: "One-time",
+        badge: "Most take this",
+        features: [
+            "Everything in Listed",
+            "Full feature page, written for you",
+            "Permanent URL you can cite",
+            "Partner badge for your site",
+            "Mentions in relevant articles",
+        ],
+        highlight: true,
+    },
+    {
+        name: "Premier",
+        price: "From $—",
+        note: "Annual · one per category",
+        features: [
+            "Everything in Featured",
+            "Homepage placement, year-round",
+            "Category exclusivity",
+            "Newsletter feature",
+            "Annual refresh of your page",
+        ],
+        highlight: false,
+    },
+];
+
+const gettingItems = [
+    {
+        title: "A page you didn't write",
+        blurb: "Researched and written properly. Not a press release with your logo on it.",
+    },
+    {
+        title: "Something to point at",
+        blurb: "A permanent URL for your deck, your site, your emails.",
+    },
+    {
+        title: "Association, not just a link",
+        blurb: "Your brand tied to your category on a publication search engines read.",
+    },
+    {
+        title: "The company you keep",
+        blurb: "A short list, kept short on purpose.",
+    },
+];
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <BackwardButton currentPath={Astro.url.pathname} />
+
+            <h1 class="mt-4 mb-1 text-90">Partner with us</h1>
+            <p class="text-lg font-medium text-90">"A page on a publication that turns brands down."</p>
+            <p class="text-sm text-black/60 dark:text-white/60 mt-2 max-w-[var(--measure)]">
+                Now or Never features a small number of brands in health, fitness and wellness. Every feature is labeled as paid promotion, and being featured isn't for sale to everyone — that's what makes it worth having.
+            </p>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <div class="grid sm:grid-cols-3 gap-4 mt-10">
+                {tiers.map((tier) => (
+                    <div class:list={[
+                        "relative rounded-[var(--radius-large)] p-6 flex flex-col",
+                        tier.highlight
+                            ? "border-2 border-blue-500 dark:border-blue-400"
+                            : "border border-black/10 dark:border-white/15",
+                    ]}>
+                        {tier.badge && (
+                            <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500 text-white whitespace-nowrap">
+                                {tier.badge}
+                            </span>
+                        )}
+                        <h3 class="font-semibold text-90">{tier.name}</h3>
+                        <div class="text-2xl font-bold text-90 mt-2">{tier.price}</div>
+                        <div class="text-xs text-black/40 dark:text-white/40 mb-4">{tier.note}</div>
+                        <ul class="flex flex-col gap-2">
+                            {tier.features.map((f) => (
+                                <li class="flex items-start gap-2 text-sm text-black/70 dark:text-white/70">
+                                    <Icon name="material-symbols:check-rounded" class="text-[var(--primary)] text-lg shrink-0 mt-0.5" />
+                                    <span>{f}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+
+            <p class="text-xs text-black/50 dark:text-white/50 mt-4">
+                Guest articles are not part of any tier. Bylines are invitation-only and unpaid — they can't be bought, which is what makes them worth something.
+            </p>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <h2 class="mt-8 mb-4 text-90">What you're actually getting</h2>
+            <div class="grid sm:grid-cols-2 gap-x-8 gap-y-6">
+                {gettingItems.map((item) => (
+                    <div class="border-l-2 border-[var(--primary)] pl-4">
+                        <h3 class="font-bold text-90 mb-1">{item.title}</h3>
+                        <p class="text-sm text-black/70 dark:text-white/70">{item.blurb}</p>
+                    </div>
+                ))}
+            </div>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <div class="grid sm:grid-cols-2 gap-4 mt-8">
+                <div class="rounded-[var(--radius-large)] p-5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                    <h4 class="font-semibold text-90 mb-1">Who we say yes to</h4>
+                    <p class="text-sm text-black/70 dark:text-white/70">
+                        Claims that hold up. A real operation with named people behind it. A long view — brands built to still be here in ten years.
+                    </p>
+                </div>
+                <div class="rounded-[var(--radius-large)] p-5 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25">
+                    <h4 class="font-semibold text-amber-900 dark:text-amber-200 mb-1">What payment doesn't buy</h4>
+                    <p class="text-sm text-amber-800/90 dark:text-amber-200/80">
+                        A favorable opinion, an exemption from our standards, or a followed link. Every feature is labeled paid promotion. <a href={url("/disclosure/")} class="font-medium hover:underline">Full disclosure →</a>
+                    </p>
+                </div>
+            </div>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <div class="card-base mt-8 p-6 md:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div>
+                    <h3 class="text-xl font-bold text-90 mb-1">Start a conversation</h3>
+                    <p class="text-sm text-black/70 dark:text-white/70">Tell us what you're building. We reply within two or three days, and we'll say plainly if it isn't a fit.</p>
+                </div>
+                <a href={url("/contact/")} class="shrink-0 px-5 py-2.5 rounded-lg text-sm font-medium border border-black/15 dark:border-white/20 hover:bg-[var(--btn-card-bg-hover)] transition-colors">
+                    Get in touch
+                </a>
+            </div>
+        </div>
+    </div>
+</GridLayout>

@@ -1,46 +1,84 @@
 ---
 export const prerender = true;
 
-import { getEntry, render } from "astro:content";
-
 import { partners } from "@constants/partners";
-import Markdown from "@components/common/markdown.astro";
+import { url } from "@utils/url";
 import GridLayout from "@layouts/grid.astro";
 import BackwardButton from "@components/backwardButton.astro";
 import PartnerContactCard from "@components/partnerContactCard.astro";
+import { Icon } from "astro-icon/components";
 
 const pageTitle = "Partners";
 const pageDescription = "Brands and practitioners featured on Now or Never, and how paid placements are disclosed.";
 
-const introPost = await getEntry("spec", "partners");
-const footerPost = await getEntry("spec", "partners-footer");
-
-if (!introPost || !footerPost) {
-    throw new Error("Partners page content not found");
-}
-
-const { Content: IntroContent } = await render(introPost);
-const { Content: FooterContent } = await render(footerPost);
+const standards = [
+    {
+        title: "Claims that hold up",
+        blurb: "If the marketing promises what the evidence doesn't support, that's the end of it.",
+    },
+    {
+        title: "A real operation",
+        blurb: "Named people, a track record, actual customers. Not a white-label store with a logo.",
+    },
+    {
+        title: "A long view",
+        blurb: "Brands built to still be here in ten years, run by people who talk that way.",
+    },
+];
 ---
 
 <GridLayout title={pageTitle} description={pageDescription}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
-            <Markdown class="mt-2">
-                <IntroContent />
-            </Markdown>
 
-            <h2 class="mt-6 mb-4 text-90">Featured partners</h2>
+            <h1 class="mt-4 mb-1 text-90">Partners</h1>
+            <p class="text-lg font-medium text-90">Brands we stand behind, and what that means.</p>
+
+            <div class="flex items-start gap-3 rounded-[var(--radius-large)] p-5 mt-6 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25">
+                <Icon name="material-symbols:visibility-outline-rounded" class="text-2xl shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                <div>
+                    <h4 class="font-semibold text-amber-900 dark:text-amber-200 mb-1">Paid promotion</h4>
+                    <p class="text-sm text-amber-800/90 dark:text-amber-200/80">
+                        Every brand on this page compensates Now or Never for placement, and each feature is labeled. Payment doesn't buy a favorable opinion or an exemption from our editorial standards. <a href={url("/disclosure/")} class="font-medium hover:underline">Full disclosure →</a>
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-sm text-black/60 dark:text-white/60 mt-4 max-w-[var(--measure)]">
+                Three brands, chosen because their approach to health lines up with how this site thinks about it: clarity over hype, substance over trends, and a long view of what actually works. We've turned others down.
+            </p>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <h2 class="mt-8 mb-4 text-90">Featured partners</h2>
             <div class="flex flex-col gap-4">
                 {partners.map((p) => (
                     <PartnerContactCard partner={p} showReadMore={true} />
                 ))}
             </div>
 
-            <Markdown class="mt-8">
-                <FooterContent />
-            </Markdown>
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <h2 class="mt-8 mb-4 text-90">How a brand ends up here</h2>
+            <div class="grid sm:grid-cols-3 gap-x-8 gap-y-6">
+                {standards.map((s) => (
+                    <div class="border-l-2 border-[var(--primary)] pl-4">
+                        <h3 class="font-bold text-90 mb-1">{s.title}</h3>
+                        <p class="text-sm text-black/70 dark:text-white/70">{s.blurb}</p>
+                    </div>
+                ))}
+            </div>
+
+            <p class="text-sm text-black/50 dark:text-white/50 mt-6 max-w-[var(--measure)]">
+                Editorial coverage is separate. When a brand is mentioned in a regular article and no money changed hands, that's editorial and it isn't labeled. Guest articles are invitation-only and unpaid — see <a href={url("/contributors/")} class="link text-[var(--primary)]">contributors</a>.
+            </p>
+
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <p class="text-sm text-black/50 dark:text-white/50 mt-6">
+                Building something in health or fitness that holds up to scrutiny? <a href={url("/partners/advertise/")} class="link text-[var(--primary)]">Partner with us →</a>
+            </p>
         </div>
     </div>
 </GridLayout>
