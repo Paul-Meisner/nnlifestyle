@@ -32,10 +32,17 @@ const standards = [
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
 
-            <h1 class="mt-4 mb-1 text-90">Partners</h1>
-            <p class="text-lg font-medium text-90">Brands we stand behind, and what that means.</p>
+            <h1 class="mt-4 mb-4 text-90">Partners</h1>
 
-            <div class="flex items-start gap-3 rounded-[var(--radius-large)] p-5 mt-6 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25">
+            <div class="bg-[var(--btn-regular-bg)] rounded-[var(--radius-large)] py-4 mb-4">
+                <p class="font-bold text-lg text-90 relative ml-8
+                    before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+                    before:absolute before:left-[-16px] before:top-[5.5px]">
+                    Brands we stand behind, and what that means.
+                </p>
+            </div>
+
+            <div class="flex items-start gap-3 rounded-[var(--radius-large)] p-5 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25">
                 <Icon name="material-symbols:visibility-outline-rounded" class="text-2xl shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
                 <div>
                     <h4 class="font-semibold text-amber-900 dark:text-amber-200 mb-1">Paid promotion</h4>
@@ -45,7 +52,7 @@ const standards = [
                 </div>
             </div>
 
-            <p class="text-sm text-black/60 dark:text-white/60 mt-4 max-w-[var(--measure)]">
+            <p class="text-sm text-black/60 dark:text-white/60 mt-4">
                 Three brands, chosen because their approach to health lines up with how this site thinks about it: clarity over hype, substance over trends, and a long view of what actually works. We've turned others down.
             </p>
 
