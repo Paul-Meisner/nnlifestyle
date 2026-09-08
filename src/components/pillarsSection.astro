@@ -39,10 +39,13 @@ const pillars = [
     </h2>
     <p class="text-sm text-black/60 dark:text-white/60 mb-5">What this site is actually about, in six words.</p>
     <div class="grid sm:grid-cols-2 gap-x-8 gap-y-5">
-        {pillars.map((p) => (
-            <div>
-                <h3 class="font-semibold text-90 mb-1">{p.name}</h3>
-                <p class="text-sm text-black/70 dark:text-white/70">{p.blurb}</p>
+        {pillars.map((p, i) => (
+            <div class="flex gap-3">
+                <span class="shrink-0 w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
+                <div>
+                    <h3 class="font-semibold text-90 mb-1">{p.name}</h3>
+                    <p class="text-sm text-black/70 dark:text-white/70">{p.blurb}</p>
+                </div>
             </div>
         ))}
     </div>
