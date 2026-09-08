@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
+import { contributorShortName } from "@constants/contributors";
 import type { Contributor } from "@constants/contributors";
 import { partners } from "@constants/partners";
 import { url } from "@utils/url";
@@ -29,7 +30,7 @@ const sortedPosts = allPosts.sort((a, b) => {
     return new Date(a.data.published) > new Date(b.data.published) ? -1 : 1;
 });
 
-const firstName = contributor.name.split(" ")[0];
+const shortName = contributorShortName(contributor.name);
 const initials = contributor.name
     .replace(/[.,[\]]/g, "")
     .split(" ")
@@ -111,7 +112,7 @@ const profilePageSchema = {
                 </div>
             )}
 
-            <h2 class="mt-8 mb-4 text-90">Posts by {firstName}</h2>
+            <h2 class="mt-8 mb-4 text-90">Posts by {shortName}</h2>
             {sortedPosts.length > 0 ? (
                 <PostPage page={{ data: sortedPosts }} />
             ) : (

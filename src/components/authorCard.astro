@@ -1,4 +1,5 @@
 ---
+import { contributorShortName } from "@constants/contributors";
 import type { Contributor } from "@constants/contributors";
 import { url } from "@utils/url";
 import ImageWrapper from "@components/common/imageWrapper.astro";
@@ -50,7 +51,7 @@ function initialsFor(name: string): string {
         )}
         {showViewPosts && (
             <a href={url(`/author/${contributor.slug}/`)} class="inline-block mt-2 text-sm font-medium text-[var(--primary)]">
-                View all posts by {contributor.name.split(" ")[0]} →
+                View all posts by {contributorShortName(contributor.name)} →
             </a>
         )}
     </div>

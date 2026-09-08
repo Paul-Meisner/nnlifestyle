@@ -3,7 +3,7 @@ export const prerender = true;
 
 import { getEntry, render } from "astro:content";
 
-import { contributors } from "@constants/contributors";
+import { contributors, contributorShortName } from "@constants/contributors";
 import { partners } from "@constants/partners";
 import { url } from "@utils/url";
 import Markdown from "@components/common/markdown.astro";
@@ -16,17 +16,30 @@ const pageTitle = "Contributors";
 const pageDescription = "Who writes for Now or Never, and why we asked them.";
 
 const introPost = await getEntry("spec", "contributors");
-const footerPost = await getEntry("spec", "contributors-footer");
 
-if (!introPost || !footerPost) {
+if (!introPost) {
     throw new Error("Contributors page content not found");
 }
 
 const { Content: IntroContent } = await render(introPost);
-const { Content: FooterContent } = await render(footerPost);
 
 const permanentAuthors = contributors.filter((c) => c.tier === "permanent");
 const guestContributors = contributors.filter((c) => c.tier === "guest");
+
+const selectionCriteria = [
+    {
+        title: "They know something specific.",
+        blurb: "Not general wellness enthusiasm — an actual domain where they've done the work and can say something a well-read generalist couldn't.",
+    },
+    {
+        title: "They'll say what they don't know.",
+        blurb: "The most useful contributors are the ones who mark the edges of the evidence instead of writing past them.",
+    },
+    {
+        title: "They fit how this site thinks.",
+        blurb: "Long view, no hype, comfortable saying the boring answer is usually the right one.",
+    },
+];
 
 function initialsFor(name: string): string {
     return name
@@ -63,10 +76,7 @@ function initialsFor(name: string): string {
                         ? partners.find((p) => p.slug === c.affiliatedPartnerSlug)
                         : undefined;
                     return (
-                        <a
-                            href={url(`/author/${c.slug}/`)}
-                            class="card-base group flex flex-col sm:flex-row overflow-hidden transition-colors duration-150 hover:bg-[var(--btn-card-bg-hover)]"
-                        >
+                        <div class="card-base flex flex-col sm:flex-row overflow-hidden">
                             <div class="w-full h-40 sm:h-auto sm:w-1/3 lg:w-1/4 shrink-0">
                                 {c.photo ? (
                                     <ImageWrapper src={c.photo} alt={c.name} class="w-full h-full" />
@@ -77,26 +87,58 @@ function initialsFor(name: string): string {
                                 )}
                             </div>
                             <div class="flex-1 p-4">
-                                <h3 class="text-base font-semibold text-90 transition-colors group-hover:text-[var(--primary)]">
-                                    {c.name}
-                                </h3>
+                                <a href={url(`/author/${c.slug}/`)} class="inline-block">
+                                    <h3 class="text-base font-semibold text-90 transition-colors hover:text-[var(--primary)]">
+                                        {c.name}
+                                    </h3>
+                                </a>
                                 <div class="text-xs uppercase tracking-wide text-black/50 dark:text-white/50 mb-1">
                                     {c.role}
                                 </div>
-                                <p class="text-sm text-black/70 dark:text-white/70">{c.blurb}</p>
-                                {affiliatedPartner && c.disclosureText && (
-                                    <p class="text-xs italic text-black/50 dark:text-white/50 mt-1">{c.disclosureText}</p>
+                                <p class="text-sm text-black/70 dark:text-white/70">{c.shortBio || c.blurb}</p>
+                                {c.specialties && c.specialties.length > 0 && (
+                                    <p class="text-xs text-black/60 dark:text-white/60 mt-2">
+                                        <strong>Writes about:</strong> {c.specialties.join(", ")}
+                                    </p>
                                 )}
-                                <span class="inline-block mt-2 text-sm font-medium text-[var(--primary)]">View all posts by {c.name.split(" ")[0]} →</span>
+                                {affiliatedPartner && c.disclosureText && (
+                                    <p class="text-xs italic text-black/50 dark:text-white/50 mt-2">{c.disclosureText}</p>
+                                )}
+                                <a href={url(`/author/${c.slug}/`)} class="inline-block mt-2 text-sm font-medium text-[var(--primary)] hover:underline">
+                                    View all posts by {contributorShortName(c.name)} →
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     );
                 })}
             </div>
 
-            <Markdown class="mt-8">
-                <FooterContent />
-            </Markdown>
+            <h2 class="flex items-center gap-2 mt-8 mb-1">
+                <span class="w-1 h-5 rounded-md bg-[var(--primary)] hidden md:block"></span>
+                <span class="font-bold text-3xl text-90">How guest contributors are selected</span>
+            </h2>
+            <p class="text-sm text-black/60 dark:text-white/60 mb-5">Three things.</p>
+            <div class="grid sm:grid-cols-3 gap-x-8 gap-y-5">
+                {selectionCriteria.map((c, i) => (
+                    <div class="flex gap-3">
+                        <span class="shrink-0 w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
+                        <div>
+                            <h3 class="font-semibold text-90 mb-1">{c.title}</h3>
+                            <p class="text-sm text-black/70 dark:text-white/70">{c.blurb}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-8 rounded-[var(--radius-large)] border border-black/10 dark:border-white/20 p-6">
+                <h3 class="font-bold text-xl text-90 mb-2">Want to write for us?</h3>
+                <p class="text-sm text-black/70 dark:text-white/70">
+                    Send a note through the <a href={url("/contact/")} class="link text-[var(--primary)]">contact form</a> — who you are, what you'd write, why you're the one to write it.
+                </p>
+                <p class="text-sm text-black/70 dark:text-white/70 mt-2">
+                    We pass on cold drafts, link-hunting, and anything that could have gone to a hundred other sites. Guest articles aren't for sale either way. Looking for paid placement? That's <a href={url("/partners/")} class="link text-[var(--primary)]">partners</a>.
+                </p>
+            </div>
         </div>
     </div>
 </GridLayout>
