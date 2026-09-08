@@ -1,12 +1,9 @@
 ---
 export const prerender = true;
 
-import { getEntry, render } from "astro:content";
-
 import { contributors, contributorShortName } from "@constants/contributors";
 import { partners } from "@constants/partners";
 import { url } from "@utils/url";
-import Markdown from "@components/common/markdown.astro";
 import GridLayout from "@layouts/grid.astro";
 import BackwardButton from "@components/backwardButton.astro";
 import ImageWrapper from "@components/common/imageWrapper.astro";
@@ -14,14 +11,6 @@ import AuthorCard from "@components/authorCard.astro";
 
 const pageTitle = "Contributors";
 const pageDescription = "Who writes for Now or Never, and why we asked them.";
-
-const introPost = await getEntry("spec", "contributors");
-
-if (!introPost) {
-    throw new Error("Contributors page content not found");
-}
-
-const { Content: IntroContent } = await render(introPost);
 
 const permanentAuthors = contributors.filter((c) => c.tier === "permanent");
 const guestContributors = contributors.filter((c) => c.tier === "guest");
@@ -57,9 +46,23 @@ function initialsFor(name: string): string {
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
-            <Markdown class="mt-2">
-                <IntroContent />
-            </Markdown>
+
+            <h1 class="mt-4 mb-4 text-90">Contributors</h1>
+
+            <div class="bg-[var(--btn-regular-bg)] rounded-[var(--radius-large)] py-4 mb-4">
+                <p class="font-bold text-lg text-90 relative ml-8
+                    before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+                    before:absolute before:left-[-16px] before:top-[5.5px]">
+                    Who writes here, and why we asked them.
+                </p>
+            </div>
+
+            <p class="max-w-[var(--measure)] text-90">
+                Now or Never is written primarily by its founder. When a subject calls for expertise beyond that, we bring in someone who has it rather than researching our way to a confident-sounding article.
+            </p>
+            <p class="mt-4 max-w-[var(--measure)] text-90">
+                Guest contributors are invited on the strength of what they know. We don't pay for guest articles and nobody pays us to publish one. Where a contributor is connected to a brand featured on this site, we say so on their entry.
+            </p>
 
             <h2 class="mt-6 mb-4 text-90">Permanent authors</h2>
             <div class="flex flex-col gap-4">
@@ -113,17 +116,17 @@ function initialsFor(name: string): string {
                 })}
             </div>
 
-            <h2 class="flex items-center gap-2 mt-8 mb-1">
+            <h3 class="flex items-center gap-2 mt-8 mb-1">
                 <span class="w-1 h-5 rounded-md bg-[var(--primary)] hidden md:block"></span>
                 <span class="font-bold text-3xl text-90">How guest contributors are selected</span>
-            </h2>
+            </h3>
             <p class="text-sm text-black/60 dark:text-white/60 mb-5">Three things.</p>
             <div class="grid sm:grid-cols-3 gap-x-8 gap-y-5">
                 {selectionCriteria.map((c, i) => (
                     <div class="flex gap-3">
                         <span class="shrink-0 w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
                         <div>
-                            <h3 class="font-semibold text-90 mb-1">{c.title}</h3>
+                            <p class="font-semibold text-90 mb-1">{c.title}</p>
                             <p class="text-sm text-black/70 dark:text-white/70">{c.blurb}</p>
                         </div>
                     </div>
@@ -131,7 +134,7 @@ function initialsFor(name: string): string {
             </div>
 
             <div class="mt-8 rounded-[var(--radius-large)] border border-black/10 dark:border-white/20 p-6">
-                <h3 class="font-bold text-xl text-90 mb-2">Want to write for us?</h3>
+                <h2 class="font-bold text-xl text-90 mb-2">Want to write for us?</h2>
                 <p class="text-sm text-black/70 dark:text-white/70">
                     Send a note through the <a href={url("/contact/")} class="link text-[var(--primary)]">contact form</a> — who you are, what you'd write, why you're the one to write it.
                 </p>
