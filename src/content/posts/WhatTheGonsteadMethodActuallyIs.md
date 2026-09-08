@@ -4,7 +4,7 @@ published: 2026-09-05
 description: "Gonstead is a different chiropractic system built on five-step analysis before a single adjustment. What it claims, what the evidence actually supports, and what a first visit involves."
 tags: ["chiropractic", "gonstead method", "spinal health", "evidence-based"]
 category: "Health"
-cover: "/assets/images/post-placeholder.svg"
+cover: "/assets/images/5-Gonstead-Technique.webp"
 routeName: "health/gonstead-method-explained"
 draft: false
 ---

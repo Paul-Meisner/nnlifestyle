@@ -25,6 +25,7 @@ export const partners: PartnerBrand[] = [
         slug: "flight-foods",
         name: "Flight Foods",
         logo: "/assets/images/flight-foods.jpg",
+        heroImage: "/assets/images/flight-foods-rename-blog-1.jpg",
         categories: ["Supplements", "Faith-based"],
         summary: "A Catholic supplement company built around clean ingredients, disciplined living, and fueling the body with intention. Flight Foods pairs performance nutrition with a stated commitment to faith, family, and integrity.",
         website: "https://flight-foods.com/",
