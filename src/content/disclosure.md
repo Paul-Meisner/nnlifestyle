@@ -25,8 +25,6 @@ How we handle it:
 - We decline brands whose claims or practices don't meet those standards, regardless of budget
 - We can pull a feature if a partner's claims change
 
-**Agency relationship.** Now or Never's founder, Paul Meisner, also runs Coastal Marketing Strategies, a marketing agency. Some brands featured on this site may be clients of that agency. Where that's the case, it's a material connection and we tell you about it on the brand's own [partners page](/partners/) entry as well as here.
-
 ## Editorial content is separate
 
 When a brand, product, or practitioner is mentioned in a regular article and no money changed hands, that's editorial. No payment, no arrangement, no obligation. If money was involved, the page says so.
