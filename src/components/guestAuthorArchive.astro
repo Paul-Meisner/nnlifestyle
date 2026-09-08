@@ -82,7 +82,7 @@ const profilePageSchema = {
                 </div>
             </div>
 
-            <p class="mt-6 max-w-[var(--measure)]">{contributor.blurb}</p>
+            <p class="mt-6 max-w-[var(--measure)] text-90">{contributor.blurb}</p>
 
             {contributor.specialties && contributor.specialties.length > 0 && (
                 <p class="mt-2 text-sm text-black/60 dark:text-white/60">
@@ -96,6 +96,13 @@ const profilePageSchema = {
                     <a href={url(`/partners/${affiliatedPartner.slug}/`)} class="link text-[var(--primary)] not-italic">{affiliatedPartner.name}</a>
                     {contributor.disclosureText.split(affiliatedPartner.name)[1]}
                 </p>
+            )}
+
+            {contributor.professionalUrl && (
+                <div class="flex items-center gap-3 mt-4 text-sm text-black/50 dark:text-white/50">
+                    <span>Professional site —</span>
+                    <a href={contributor.professionalUrl} target="_blank" rel="noopener noreferrer nofollow" class="link text-[var(--primary)]">{contributor.professionalUrl}</a>
+                </div>
             )}
 
             {contributor.professionalLinksNote && (

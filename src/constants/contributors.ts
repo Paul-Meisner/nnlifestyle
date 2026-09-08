@@ -11,6 +11,7 @@ export interface Contributor {
     // Exact prescribed disclosure sentence — not generated, to keep pronouns/wording precise.
     disclosureText?: string;
     professionalLinksNote?: string;
+    professionalUrl?: string;
     sameAs?: string[];
 }
 
@@ -32,26 +33,26 @@ export const contributors: Contributor[] = [
         slug: "maycee-sturino",
         tier: "guest",
         name: "Dr. Maycee Sturino, D.C.",
-        role: "[Degree and licensure] · Genesis Chiropractic, Appleton, WI",
+        role: "Co-Owner & Chiropractor · Genesis Chiropractic",
         photo: "",
-        blurb: "[BIO — 60–100 words, pending sign-off. Lead with clinical credentials and years in practice, then specialty, then what perspective she brings here specifically: Gonstead method, Webster certification, pediatric and prenatal care.]",
-        specialties: ["[specialty areas — to be confirmed]"],
+        blurb: "Dr. Maycee Sturino is a Gonstead-certified chiropractor and co-owner of Genesis Chiropractic in Appleton, Wisconsin, alongside her husband, Dr. Alex Sturino. Inspired to enter the field after recovering from a career-threatening powerlifting injury, she specializes in family wellness, prenatal care, and pediatric development, holding Webster Certification through the ICPA. Dr. Sturino is a passionate advocate for natural health, recently featured on the Motherhood Alliance podcast discussing how specialized chiropractic care impacts pregnancy, birth, and child development.",
+        specialties: ["Maternal health, prenatal and pediatric care, Gonstead chiropractic methodology, and family wellness"],
         affiliatedPartnerSlug: "genesis-chiropractic",
-        disclosureText: "Dr. Maycee's practice, Genesis Chiropractic, is a featured partner on this site. She was not paid for this article and did not pay to appear.",
-        professionalLinksNote: "Professional site · Professional profile — to be added",
+        disclosureText: "Genesis Chiropractic is a featured partner on this site. Dr. Sturino was not paid for her appearance and did not pay to appear here.",
+        professionalUrl: "https://www.genesischirowi.com/",
         sameAs: [],
     },
     {
         slug: "thomas-lahart",
         tier: "guest",
         name: "Thomas Lahart",
-        role: "[Role] · Flight Foods",
+        role: "Founder · Flight Foods",
         photo: "",
-        blurb: "[BIO — 60–100 words, pending sign-off. What he does at Flight Foods, his background, and what makes his angle worth reading — years in the field, what he's actually built or done.]",
-        specialties: ["[subject areas — to be confirmed]"],
+        blurb: "Thomas Lahart is the founder of Flight Foods, a Tampa-based Catholic nutritional supplement brand uniting faith, fitness, and clean nutrition. Starting the company from his Auburn University dorm in 2020, Thomas bootstrapped his vision into a nationwide e-commerce success. An athlete and entrepreneur, he saw a gap in the market for transparent, high-performance supplements without proprietary blends or artificial fillers. Driven by a mission to help people become \"Fit for the Kingdom\" and honor their bodies as temples, Thomas provides a unique perspective on integrating spiritual well-being with physical performance and building community-focused, mission-driven brands.",
+        specialties: ["Mission-driven entrepreneurship, sports nutrition, clean supplementation, and the intersection of faith and fitness"],
         affiliatedPartnerSlug: "flight-foods",
         disclosureText: "Flight Foods is a featured partner on this site. Thomas was not paid for his article and did not pay to appear here.",
-        professionalLinksNote: "Professional site — to be added",
+        professionalUrl: "https://flight-foods.com/",
         sameAs: [],
     },
 ];
