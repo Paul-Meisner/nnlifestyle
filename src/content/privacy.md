@@ -9,7 +9,7 @@
 
 This policy explains what information Now or Never collects, why, and what you can do about it.
 
-Now or Never is operated by `[LEGAL ENTITY]`, `[ADDRESS]`.
+Now or Never Lifestyle is operated by Paul Meisner, a sole proprietor, in Wisconsin.
 
 ## What we collect
 
@@ -70,4 +70,4 @@ We'll update this policy when practices change, and revise the effective date. I
 
 ## Contact
 
-`[PRIVACY EMAIL]` · `[LEGAL ENTITY]`, `[ADDRESS]`
+`[PRIVACY EMAIL]` · Paul Meisner, sole proprietor of Now or Never Lifestyle, Wisconsin

@@ -12,6 +12,7 @@ import { getFileDirFromPath, getPostUrlBySlug, removeFileExtension} from "@utils
 import { i18n } from "@i18n/translation";
 import I18nKey from "@i18n/i18nKey";
 import License from "@components/post/license.astro";
+import AuthorBioFooter from "@components/post/authorBioFooter.astro";
 import Markdown from "@components/common/markdown.astro";
 import ImageWrapper from "@components/common/imageWrapper.astro";
 import Comment from "@components/post/comment.astro";
@@ -203,6 +204,7 @@ const jsonLd = {
                 <Markdown class="mb-6 markdown-content onload-animation-up">
                     <Content />
                 </Markdown>
+                <AuthorBioFooter author={entry.data.author} class="mb-6 onload-animation-up" />
                 {
                     postConfig.license.enable && (
                         <License

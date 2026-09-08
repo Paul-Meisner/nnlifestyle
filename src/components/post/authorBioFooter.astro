@@ -1,0 +1,50 @@
+---
+import { contributors } from "@constants/contributors";
+import { url } from "@utils/url";
+import ImageWrapper from "@components/common/imageWrapper.astro";
+
+interface Props {
+    author: string;
+    class?: string;
+}
+
+const { author, class: className } = Astro.props;
+
+// Single-author site today — posts default to Paul unless a future guest
+// writer's post sets `author` to their own name.
+const contributor = contributors.find((c) => c.name === author) || contributors.find((c) => c.slug === "paul-meisner");
+
+function initialsFor(name: string): string {
+    return name
+        .replace(/[.,[\]]/g, "")
+        .split(" ")
+        .filter(Boolean)
+        .map((n) => n[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+}
+---
+
+{contributor && (
+    <div class:list={[className, "card-base flex items-center gap-4 p-5"]}>
+        {contributor.photo ? (
+            <ImageWrapper
+                src={contributor.photo}
+                alt={contributor.name}
+                class="w-14 h-14 rounded-full overflow-hidden shrink-0"
+            />
+        ) : (
+            <div class="w-14 h-14 rounded-full shrink-0 flex items-center justify-center bg-[var(--btn-regular-bg)] text-[var(--btn-content)] font-bold" aria-hidden="true">
+                {initialsFor(contributor.name)}
+            </div>
+        )}
+        <div>
+            <div class="text-xs uppercase tracking-wide text-black/50 dark:text-white/50 mb-1">Written by</div>
+            <a href={url(`/author/${contributor.slug}/`)} class="font-semibold text-90 hover:text-[var(--primary)] transition-colors">
+                {contributor.name}
+            </a>
+            <p class="text-sm text-black/70 dark:text-white/70 mt-1">{contributor.shortBio || contributor.blurb}</p>
+        </div>
+    </div>
+)}

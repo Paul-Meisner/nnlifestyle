@@ -3,7 +3,7 @@
 
 # Copyright
 
-All content on this site is © 2026 `[LEGAL ENTITY]` unless otherwise noted. Contributor articles remain the property of their authors.
+All content on this site is © 2026 Paul Meisner, sole proprietor of Now or Never Lifestyle, unless otherwise noted. Contributor articles remain the property of their authors.
 
 You may quote a short excerpt with clear attribution and a link back.
 

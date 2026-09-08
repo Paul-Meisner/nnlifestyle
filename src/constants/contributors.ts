@@ -36,9 +36,11 @@ export const contributors: Contributor[] = [
         name: "Paul Meisner",
         role: "Founder and Editor",
         photo: "/assets/images/Paul.JPG",
-        // Kept identical to the bio on /about/ on purpose — two slightly different
-        // bios for the same person undercuts entity consolidation.
-        blurb: "Paul Meisner is the founder and editor of Now or Never. He writes about training, nutrition, faith, and the long game of staying healthy while running a business and raising a family. He is not a physician, and Now or Never does not publish medical advice — what it publishes is the reasoning, the research, and the lived experience behind decisions readers are making anyway.",
+        // Kept identical to the bio on /about/ and the author archive on purpose —
+        // two slightly different bios for the same person undercuts entity consolidation.
+        blurb: "Paul Meisner is the founder and editor of Now or Never. He was born and raised in Germany and came to the United States for college, where he studied software engineering and information systems. He works in SEO and operations, keeps a few head of cattle on the side, and gardens badly but persistently. He came to the Catholic faith in 2022 after growing up without one — a decision that shapes how he writes about discipline, stewardship, and the long game. He lives in Freedom, Wisconsin with his wife and children. He is not a physician, and this site does not publish medical advice.",
+        // Shorter version for article footers.
+        shortBio: "Paul Meisner is the founder and editor of Now or Never. Born and raised in Germany, now in Freedom, Wisconsin with his wife and kids. Works in SEO, keeps cattle part-time, came to the Catholic faith in 2022. Not a physician — what he publishes is the reasoning behind decisions readers are making anyway.",
         professionalLinksNote: "Full bio in progress. Links: LinkedIn · X · Instagram · Email — to be added.",
         sameAs: [],
     },
