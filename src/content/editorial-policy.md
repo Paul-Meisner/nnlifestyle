@@ -3,7 +3,7 @@
 
 # Editorial Policy
 
-*Effective September 4, 2026*
+*Effective September 8, 2026*
 
 ## What we publish
 
@@ -22,7 +22,7 @@ Every article, whether written by our founder, a contributor, or as part of a sp
 
 ## Who writes here
 
-Every article carries a byline linking to that author's full profile. Paul Meisner's is at [/author/paul-meisner/](/author/paul-meisner/); guest contributors, when we run them, get the same treatment.
+Every article carries a byline linking to that author's full profile and credentials. Our authors are listed on the [contributors page](/contributors/).
 
 Contributors are invited on the strength of their expertise. Nobody pays to be a contributor and nobody is paid to write.
 
@@ -44,7 +44,7 @@ We get things wrong sometimes. When we do:
 - Substantive corrections carry a dated note on the article
 - Articles that are materially updated show a "last updated" date
 
-If you spot an error, tell us: `[CONTACT EMAIL]`. Corrections are welcome and we mean that.
+If you spot an error, tell us: `paul.meisner.cs@gmail.com`. Corrections are welcome and we mean that.
 
 ## Sponsored content
 

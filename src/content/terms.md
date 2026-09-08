@@ -3,9 +3,9 @@
 
 # Terms of Use
 
-*Effective September 4, 2026*
+*Effective September 8, 2026*
 
-By using this site you agree to these terms. If you don't agree, don't use the site.
+By using nnlifestyle.com you agree to these terms. If you don't agree, don't use the site.
 
 ## The content here is educational
 
@@ -32,9 +32,11 @@ All content on this site — articles, images, the Now or Never name and logo �
 
 If you send us a message, pitch, or submission, you grant us a non-exclusive right to use it in connection with responding to you and, where relevant, publishing it with your agreement. Don't send us anything confidential.
 
+If you leave a comment, you grant us a non-exclusive right to display and moderate it. We may remove any comment for any reason, including if it's off-topic, abusive, promotional, or unlawful.
+
 ## Links to other sites
 
-We link to sites we don't control. We're not responsible for their content, accuracy, or practices. A link is not an endorsement, and some links are paid or affiliate links — see our [Disclosure](/disclosure/).
+We link to sites we don't control. We're not responsible for their content, accuracy, or practices. A link is not an endorsement, and some links are paid placements — see our [Disclosure](/disclosure/) for how that works and whether affiliate links are currently in use.
 
 ## No warranties
 
@@ -58,4 +60,4 @@ We may update these terms. Continued use after changes means you accept them.
 
 ## Contact
 
-`[CONTACT EMAIL]`
+`paul.meisner.cs@gmail.com`

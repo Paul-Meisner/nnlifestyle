@@ -3,19 +3,15 @@
 
 # Disclosure
 
-*Effective September 4, 2026*
+*Effective September 8, 2026*
 
 We think you should know exactly how this site makes money. Here it is.
 
 ## Affiliate links
 
-Some links on this site are affiliate links. If you click one and buy something, we may earn a commission at no additional cost to you.
+We may include affiliate links on this site in the future — if you click one and buy something, we'd earn a commission at no additional cost to you. Any affiliate link would only ever go to a product we'd recommend anyway; a commission would never determine whether something appears here or how we describe it.
 
-We only link to products we'd recommend anyway. A commission does not determine whether something appears here or how we describe it.
-
-As an Amazon Associate, Now or Never earns from qualifying purchases.
-
-We participate in the following programs: Amazon Associates. `[Add any direct affiliate programs beyond Amazon here.]`
+As of publish, we are not enrolled in the Amazon Associates program or any other affiliate program. If and when that changes, the specific program will be named here before any affiliate link goes live.
 
 ## Sponsored features and paid partnerships
 
@@ -29,13 +25,15 @@ How we handle it:
 - We decline brands whose claims or practices don't meet those standards, regardless of budget
 - We can pull a feature if a partner's claims change
 
+**Agency relationship.** Now or Never's founder, Paul Meisner, also runs Coastal Marketing Strategies, a marketing agency. Some brands featured on this site may be clients of that agency. Where that's the case, it's a material connection and we tell you about it on the brand's own [partners page](/partners/) entry as well as here.
+
 ## Editorial content is separate
 
 When a brand, product, or practitioner is mentioned in a regular article and no money changed hands, that's editorial. No payment, no arrangement, no obligation. If money was involved, the page says so.
 
 ## Contributors
 
-Contributors are not paid placements. We don't pay them to write and they don't pay us to appear. If that ever changes for a given person, their work moves to the partners page.
+Contributors listed on our [contributors page](/contributors/) are not paid placements. We don't pay them to write and they don't pay us to appear. If that ever changes for a given person, they move to the partners page.
 
 ## Gifted products
 
@@ -43,4 +41,4 @@ If we receive a product free of charge for review, we'll say so in that article.
 
 ## Questions
 
-If anything about how we make money is unclear, ask: `[CONTACT EMAIL]`. We'd rather answer it than have you wonder.
+If anything about how we make money is unclear, ask: `paul.meisner.cs@gmail.com`. We'd rather answer it than have you wonder.

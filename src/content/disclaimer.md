@@ -3,15 +3,13 @@
 
 # Disclaimer
 
-*Effective September 4, 2026*
-
-> **Not legal advice.** This is a working draft built on standard practice for a site that covers supplementation and works with supplement brands. Because this is the page that matters most if someone gets hurt, it needs an attorney's review before publish.
+*Effective September 8, 2026*
 
 ## Medical disclaimer
 
 Now or Never does not provide medical advice.
 
-Everything on this site — articles, guides, contributor posts, partner features, newsletters — is for general educational and informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment.
+Everything on this site — articles, guides, contributor posts, and partner features — is for general educational and informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment.
 
 Nothing here is intended to diagnose, treat, cure, or prevent any disease or health condition.
 
@@ -45,8 +43,8 @@ We link to outside resources for convenience. We don't control them and aren't r
 
 ## Sponsored content
 
-Some content on this site is sponsored or contains affiliate links. See our [Disclosure](/disclosure/) for details on how we handle that. Sponsorship does not change the standards above, and no payment buys a health claim we wouldn't otherwise publish.
+Some content on this site is sponsored or may contain affiliate links. See our [Disclosure](/disclosure/) for details on how we handle that. Sponsorship does not change the standards above, and no payment buys a health claim we wouldn't otherwise publish.
 
 ## Contact
 
-`[CONTACT EMAIL]`
+`paul.meisner.cs@gmail.com`
