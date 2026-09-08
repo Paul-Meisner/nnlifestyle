@@ -348,9 +348,14 @@ export function getDefaultWallpaperMode(): WALLPAPER_MODE {
 }
 
 // Function to get stored wallpaper mode from local storage
+// Fullscreen/none are no longer offered as options — a value saved by a
+// returning visitor before that change is ignored rather than honored.
 export function getStoredWallpaperMode(): WALLPAPER_MODE {
     if (typeof localStorage !== 'undefined') {
-        return (localStorage.getItem('wallpaperMode') as WALLPAPER_MODE) || getDefaultWallpaperMode();
+        const stored = localStorage.getItem('wallpaperMode');
+        if (stored === WALLPAPER_BANNER) {
+            return stored;
+        }
     }
     return getDefaultWallpaperMode();
 }
