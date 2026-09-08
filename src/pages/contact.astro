@@ -1,36 +1,69 @@
 ---
 export const prerender = true;
 
-import { getEntry, render } from "astro:content";
-
-import Markdown from "@components/common/markdown.astro";
+import { url } from "@utils/url";
 import GridLayout from "@layouts/grid.astro";
 import BackwardButton from "@components/backwardButton.astro";
 import ContactForm from "@components/contactForm.svelte";
+import { Icon } from "astro-icon/components";
 
 const pageTitle = "Contact";
 const pageDescription = "Get in touch with Now or Never — partnerships, contributor pitches, expert commentary, or reader questions.";
-
-const contactIntro = await getEntry("spec", "contact");
-const contactFooter = await getEntry("spec", "contact-footer");
-
-if (!contactIntro || !contactFooter) {
-    throw new Error("Contact page content not found");
-}
-
-const { Content: IntroContent } = await render(contactIntro);
-const { Content: FooterContent } = await render(contactFooter);
 ---
 
 <GridLayout title={pageTitle} description={pageDescription}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <BackwardButton currentPath={Astro.url.pathname} />
-            <Markdown class="mt-2">
-                <IntroContent />
-            </Markdown>
 
-            <h2 class="mt-2 text-90">Contact form</h2>
+            <h1 class="mt-4 mb-1 text-90">Contact</h1>
+            <p class="text-lg font-medium text-90">Real questions get real answers.</p>
+            <p class="text-sm text-black/60 dark:text-white/60 mt-2 max-w-[var(--measure)]">
+                Now or Never is a small operation, which means the person reading your message is the person who writes the site. Tell me what you're actually after and you'll hear back.
+            </p>
+
+            <h2 class="mt-8 mb-4 text-90">What you can reach out about</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="card-base p-4 flex gap-3">
+                    <Icon name="material-symbols:handshake-outline-rounded" class="text-2xl shrink-0 text-[var(--primary)] mt-0.5" />
+                    <div>
+                        <h3 class="font-semibold text-90 text-sm mb-1">Partnerships and features</h3>
+                        <p class="text-xs text-black/60 dark:text-white/60">
+                            Start with <a href={url("/partners/advertise/")} class="link text-[var(--primary)]">partner with us</a> — it covers tiers and pricing. If what you need isn't there, say so below.
+                        </p>
+                    </div>
+                </div>
+                <div class="card-base p-4 flex gap-3">
+                    <Icon name="material-symbols:draw-outline-rounded" class="text-2xl shrink-0 text-[var(--primary)] mt-0.5" />
+                    <div>
+                        <h3 class="font-semibold text-90 text-sm mb-1">Contributor and guest content</h3>
+                        <p class="text-xs text-black/60 dark:text-white/60">Practitioners and coaches with something specific to say. A short overview of your background and the idea.</p>
+                    </div>
+                </div>
+                <div class="card-base p-4 flex gap-3">
+                    <Icon name="material-symbols:forum-outline-rounded" class="text-2xl shrink-0 text-[var(--primary)] mt-0.5" />
+                    <div>
+                        <h3 class="font-semibold text-90 text-sm mb-1">Expert commentary</h3>
+                        <p class="text-xs text-black/60 dark:text-white/60">Open to being quoted or consulted for articles? I'd rather build a bench than chase sources on deadline.</p>
+                    </div>
+                </div>
+                <div class="card-base p-4 flex gap-3">
+                    <Icon name="material-symbols:fact-check-outline-rounded" class="text-2xl shrink-0 text-[var(--primary)] mt-0.5" />
+                    <div>
+                        <h3 class="font-semibold text-90 text-sm mb-1">Questions and corrections</h3>
+                        <p class="text-xs text-black/60 dark:text-white/60">Corrections especially. If something on this site is wrong, I want to know.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-[var(--radius-large)] p-5 mt-6 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                <h3 class="font-semibold text-90 mb-1">Before you write: be specific</h3>
+                <p class="text-sm text-black/70 dark:text-white/70">
+                    A templated pitch that could have gone to four hundred other sites gets deleted. Three sentences showing you've read something here gets a reply, even if the answer is no. That's the whole filter.
+                </p>
+            </div>
+
+            <h2 class="mt-8 text-90">Contact form</h2>
             <div class="mt-4">
                 <ContactForm client:load />
             </div>
@@ -38,9 +71,26 @@ const { Content: FooterContent } = await render(contactFooter);
                 Prefer email? <a href="mailto:paul.meisner.cs@gmail.com" class="link text-[var(--primary)]">paul.meisner.cs@gmail.com</a> works just as well.
             </p>
 
-            <Markdown class="mt-8">
-                <FooterContent />
-            </Markdown>
+            <hr class="mt-8 border-t border-black/10 dark:border-white/15" />
+
+            <div class="grid sm:grid-cols-3 gap-4 mt-6">
+                <div class="rounded-[var(--radius-large)] p-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                    <h4 class="font-semibold text-90 text-sm mb-1">Response time</h4>
+                    <p class="text-xs text-black/60 dark:text-white/60">Two to three business days. Partnership inquiries sooner. Fine to follow up once after a week.</p>
+                </div>
+                <div class="rounded-[var(--radius-large)] p-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                    <h4 class="font-semibold text-90 text-sm mb-1">Now or Never</h4>
+                    <p class="text-xs text-black/60 dark:text-white/60">
+                        Founded and edited by Paul Meisner<br />
+                        Green Bay, Wisconsin<br />
+                        <span class="text-[var(--primary)]">LinkedIn</span> · <span class="text-[var(--primary)]">Instagram</span>
+                    </p>
+                </div>
+                <div class="rounded-[var(--radius-large)] p-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                    <h4 class="font-semibold text-90 text-sm mb-1">A note on advice</h4>
+                    <p class="text-xs text-black/60 dark:text-white/60">Nothing sent through this form creates a professional relationship. Managing a health condition? Talk to a provider.</p>
+                </div>
+            </div>
         </div>
     </div>
 </GridLayout>
